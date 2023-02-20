@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NasabahController;
@@ -44,3 +45,46 @@ Route::get('penjualan', [PenjualanController::class, 'index'])->name('penjualan.
 
 // keuangan
 Route::get('keuangan', [KeuanganController::class, 'index'])->name('keuangan.index');
+
+
+Auth::routes();
+
+/*------------------------------------------
+--------------------------------------------
+All Nasabah Routes List
+--------------------------------------------
+--------------------------------------------*/
+Route::middleware(['auth', 'user-access:nasabah'])->group(function () {
+
+    Route::get('/nasabah', [HomeController::class, 'index'])->name('nasabah');
+});
+
+/*------------------------------------------
+--------------------------------------------
+All Pengurus Routes List
+--------------------------------------------
+--------------------------------------------*/
+Route::middleware(['auth', 'user-access:pengurus'])->group(function () {
+
+    Route::get('/pengurus', [HomeController::class, 'pengurus'])->name('pengurus');
+});
+
+/*------------------------------------------
+--------------------------------------------
+All Bendahara Routes List
+--------------------------------------------
+--------------------------------------------*/
+Route::middleware(['auth', 'user-access:bendahara'])->group(function () {
+
+    Route::get('/bendahara', [HomeController::class, 'bendahara'])->name('bendahara');
+});
+
+/*------------------------------------------
+--------------------------------------------
+All Admin Routes List
+--------------------------------------------
+--------------------------------------------*/
+Route::middleware(['auth', 'user-access:admin'])->group(function () {
+
+    Route::get('/admin', [HomeController::class, 'admin'])->name('admin');
+});
