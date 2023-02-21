@@ -24,9 +24,11 @@
 <script src="{{ url('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ url('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ url('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <!-- jquery-validation -->
 <script src="{{ url('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
 <script src="{{ url('plugins/jquery-validation/additional-methods.min.js') }}"></script>
+
 @yield('script')
 </body>
 

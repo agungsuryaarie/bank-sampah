@@ -25,10 +25,7 @@ use App\Http\Controllers\KeuanganController;
 
 // Dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
-// user
-Route::get('user', [UserController::class, 'index'])->name('user.index');
-Route::get('create', [UserController::class, 'create'])->name('user.create');
-Route::get('edit', [UserController::class, 'edit'])->name('user.edit');
+
 
 
 // nasabah
@@ -84,7 +81,24 @@ Route::middleware(['auth', 'user-access:bendahara'])->group(function () {
 All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(function () {
 
-    Route::get('/admin', [HomeController::class, 'admin'])->name('admin');
+    Route::get('/', [HomeController::class, 'admin'])->name('admin');
+    // user
+    Route::get('user', [UserController::class, 'index'])->name('user.index');
+    Route::get('user/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('user/store', [UserController::class, 'store'])->name('user.store');
+    Route::get('user/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
+    Route::post('user/update/{user}', [UserController::class, 'update'])->name('user.update');
+    Route::post('user/password/{user}', [UserController::class, 'password'])->name('user.password');
+    Route::delete('user/destroy/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+
+    // nasabah
+    Route::get('nasabah', [NasabahController::class, 'index'])->name('nasabah.index');
+    Route::get('nasabah/create', [NasabahController::class, 'create'])->name('nasabah.create');
+    Route::post('nasabah/store', [NasabahController::class, 'store'])->name('nasabah.store');
+    Route::get('nasabah/edit/{user}', [NasabahController::class, 'edit'])->name('nasabah.edit');
+    Route::post('nasabah/update/{user}', [NasabahController::class, 'update'])->name('nasabah.update');
+    Route::post('nasabah/password/{user}', [NasabahController::class, 'password'])->name('nasabah.password');
+    Route::delete('nasabah/destroy/{user}', [NasabahController::class, 'destroy'])->name('nasabah.destroy');
 });

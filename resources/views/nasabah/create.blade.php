@@ -18,12 +18,9 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <!-- left column -->
                 <div class="col-md-12">
-                    <!-- jquery validation -->
                     <div class="card card-primary card-outline">
-                        <!-- form start -->
-                        <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('nasabah.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
@@ -33,19 +30,6 @@
                                             <input type="text" name="name" value="{{ old('name') }}"
                                                 class="form-control @error('name') is-invalid @enderror" placeholder="Nama">
                                             @error('name')
-                                                <span class="invalid-feedback">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4">
-                                        <div class="form-group">
-                                            <label>Username</label>
-                                            <input type="text" name="username" value="{{ old('username') }}"
-                                                class="form-control @error('username') is-invalid @enderror"
-                                                placeholder="Username">
-                                            @error('username')
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -65,7 +49,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-4">
+                                    <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
                                             <label>Phone</label>
                                             <input type="text" name="nohp" value="{{ old('nohp') }}"
@@ -81,27 +65,10 @@
                                     <div class="col-lg-6 col-md-4">
                                         <div class="form-group">
                                             <label>Password</label>
-                                            <input type="password" name="password"
+                                            <input type="password" name="password" value="{{ old('password') }}"
                                                 class="form-control @error('password') is-invalid @enderror"
                                                 placeholder="Password">
                                             @error('password')
-                                                <span class="invalid-feedback">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-4">
-                                        <div class="form-group">
-                                            <label>Role</label>
-                                            <select class="form-control @error('type') is-invalid @enderror select2bs4"
-                                                name="type" style="width: 100%;">
-                                                <option>Pilih</option>
-                                                <option value="1" @selected(old('type') == '1')>Admin</option>
-                                                <option value="2" @selected(old('type') == '2')>Bendahara</option>
-                                                <option value="3" @selected(old('type') == '3')>Pengurus</option>
-                                            </select>
-                                            @error('type')
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -143,7 +110,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('user.index') }}" class="btn btn-danger btn-sm">Batal</a>
+                                <a href="{{ route('nasabah.index') }}" class="btn btn-danger btn-sm">Batal</a>
                                 <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                             </div>
                         </form>

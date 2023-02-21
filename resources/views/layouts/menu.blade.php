@@ -9,7 +9,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('user.index') }}" class="nav-link {{ request()->segment(1) == 'user' ? 'active' : '' }}">
+            <a href="{{ route('user.index') }}" class="nav-link {{ request()->segment(2) == 'user' ? 'active' : '' }}">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
                     User
@@ -18,7 +18,7 @@
         </li>
         <li class="nav-item">
             <a href="{{ route('nasabah.index') }}"
-                class="nav-link {{ request()->segment(1) == 'nasabah' ? 'active' : '' }}" class="nav-link">
+                class="nav-link {{ request()->segment(2) == 'nasabah' ? 'active' : '' }}" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
                     Nasabah
