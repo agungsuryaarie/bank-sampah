@@ -135,9 +135,8 @@
                                     <div class="col-lg-6 col-md-4">
                                         <div class="form-group">
                                             <label>Preview</label><br>
-                                            <img id="preview-image-before-upload"
-                                                src="{{ url('storage/profile/81913-200.png') }}" alt="preview image"
-                                                style="max-height: 250px;">
+                                            <img id="preview-image-before-upload" src="{{ url('img/81913-200.png') }}"
+                                                alt="preview image" style="max-height: 250px;">
                                         </div>
                                     </div>
                                 </div>

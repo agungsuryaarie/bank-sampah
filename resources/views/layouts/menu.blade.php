@@ -1,7 +1,8 @@
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-            <a href="{{ route('dashboard.index') }}" class="nav-link {{ request()->segment(1) == '/' ? 'active' : '' }}">
+            <a href="{{ route('dashboard') }}"
+                class="nav-link {{ request()->segment(2) == 'dashboard' ? 'active' : '' }}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                     Dashboard
@@ -26,8 +27,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('jenis.index') }}"
-                class="nav-link {{ request()->segment(1) == 'jenissampah' ? 'active' : '' }}">
+            <a href="{{ route('sampah.index') }}"
+                class="nav-link {{ request()->segment(2) == 'sampah' ? 'active' : '' }}">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                     Jenis Sampah
@@ -36,7 +37,7 @@
         </li>
         <li class="nav-item">
             <a href="{{ route('catatan.index') }}"
-                class="nav-link {{ request()->segment(1) == 'catatan' ? 'active' : '' }}">
+                class="nav-link {{ request()->segment(2) == 'catatan' ? 'active' : '' }}">
                 <i class="nav-icon fas fa-edit"></i>
                 <p>
                     Catatan
@@ -44,11 +45,11 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('penjualan.index') }}"
-                class="nav-link {{ request()->segment(1) == 'penjualan' ? 'active' : '' }}">
-                <i class="nav-icon fas fa-book"></i>
+            <a href="{{ route('transaksi.index') }}"
+                class="nav-link {{ request()->segment(2) == 'transaksi' ? 'active' : '' }}">
+                <i class="nav-icon fas fa-exchange-alt"></i>
                 <p>
-                    Penjualan
+                    Transaksi
                 </p>
             </a>
         </li>
@@ -62,12 +63,18 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-credit-card"></i>
+            <a href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();"
+                class="nav-link">
+                <i class="nav-icon fas fa-sign-out-alt"></i>
                 <p>
-                    Logout
+                    {{ __('Logout') }}
                 </p>
             </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
         </li>
     </ul>
 </nav>
