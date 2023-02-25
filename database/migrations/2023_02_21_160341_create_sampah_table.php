@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('harga_nasabah');
             $table->string('harga_pengepul');
             $table->string('berat')->nullable();
+            $table->string('gambar')->nullable();
             $table->timestamps();
         });
     }

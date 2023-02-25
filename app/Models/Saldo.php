@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Saldo extends Model
 {
     use HasFactory;
+
+    protected $table = 'saldo';
+
+    protected $fillable = ['nasabah_id', 'saldo'];
 }

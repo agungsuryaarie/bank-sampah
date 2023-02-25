@@ -99,15 +99,20 @@
                                     <div class="col-lg-6 col-md-4">
                                         <div class="form-group">
                                             <label>Preview</label><br>
-                                            <img id="preview-image-before-upload"
-                                                src="{{ url('storage/photo', $user->photo) }}" alt="preview image"
-                                                style="max-height: 250px;">
+                                            @if ($user->photo == '')
+                                                <img id="preview-image-before-upload" src="{{ url('img/81913-200.png') }}"
+                                                    alt="preview image" style="max-height: 250px;">
+                                            @else
+                                                <img id="preview-image-before-upload"
+                                                    src="{{ url('storage/photo', $user->photo) }}" alt="preview image"
+                                                    style="max-height: 250px;">
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('nasabah.index') }}" class="btn btn-danger btn-sm">Batal</a>
+                                <a href="{{ route('admin.nasabah.index') }}" class="btn btn-danger btn-sm">Batal</a>
                                 <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                             </div>
                         </form>

@@ -50,13 +50,13 @@ class LoginController extends Controller
 
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->type == 'admin') {
-                return redirect()->route('dashboard');
-            } else if (auth()->user()->type == 'dashboard') {
-                return redirect()->route('dashboard');
-            } else if (auth()->user()->type == 'dashboard') {
-                return redirect()->route('dashboard');
+                return redirect()->route('admin.dashboard');
+            } else if (auth()->user()->type == 'pengurus') {
+                return redirect()->route('pengurus.dashboard');
+            } else if (auth()->user()->type == 'bendahara') {
+                return redirect()->route('bendahara.dashboard');
             } else {
-                return redirect()->route('dashboard');
+                return redirect()->route('nasabah.dashboard');
             }
         } else {
             return redirect()->route('login')

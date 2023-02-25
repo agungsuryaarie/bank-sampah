@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('sampah_id')->constrained('sampah');
-            $table->string('nasabah_id');
-            $table->string('berat');
-            $table->string('total');
+            $table->foreignId('petugas_id');
+            $table->foreignId('sampah_id')->nullable();
+            $table->string('nasabah_id')->constrained('users');
+            $table->string('berat')->nullable();
+            $table->string('status')->nullable();
+            $table->string('nilai')->nullable();
             $table->timestamps();
         });
     }

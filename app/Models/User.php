@@ -54,4 +54,9 @@ class User extends Authenticatable
             get: fn ($value) =>  ['nasabah', 'admin', 'bendahara', 'pengurus'][$value],
         );
     }
+
+    public function saldo()
+    {
+        return $this->belongsTo(Saldo::class, 'id', 'nasabah_id');
+    }
 }

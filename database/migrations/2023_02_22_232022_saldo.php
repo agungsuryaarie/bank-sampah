@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('username')->after('name')->nullable()->unique();
+        Schema::create('saldo', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('nasabah_id')->constrained('users')->onDelete('cascade');
+            $table->string('saldo')->default(0);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('username')->after('name')->nullable()->unique();
-        });
+        //
     }
 };

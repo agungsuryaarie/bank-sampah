@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Transaksi extends Model
 {
@@ -11,9 +12,16 @@ class Transaksi extends Model
 
     protected $table = 'transaksi';
 
-    protected $fillable = ['user_id', 'sampah_id', 'nasabah_id', 'berat', 'total'];
+    protected $fillable = ['petugas_id', 'sampah_id', 'nasabah_id', 'berat', 'nilai', 'status'];
 
-    public function user()
+    protected function stauts(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) =>  ['debit', 'kredit'][$value],
+        );
+    }
+
+    public function petugas()
     {
         return $this->belongsTo(User::class);
     }

@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index()
     {
         $menu = 'User';
-        $users = User::whereNot('type', 0)->get();
+        $users = User::whereNot('type', 0)->latest()->get();
         return view('user.data', compact('menu', 'users'));
     }
 
@@ -57,7 +57,6 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $menu = 'Edit User';
-
         return view('user.edit', compact('menu', 'user'));
     }
 
@@ -65,7 +64,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|unique:users,email',
+            'email' => 'required',
             'nohp' => 'required',
             'type' => 'required',
             'alamat' => 'required',

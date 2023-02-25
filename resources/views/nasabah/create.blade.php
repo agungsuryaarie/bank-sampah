@@ -24,7 +24,7 @@
                             @csrf
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4">
+                                    <div class="col-lg-6 col-md-4">
                                         <div class="form-group">
                                             <label>Nama</label>
                                             <input type="text" name="name" value="{{ old('name') }}"
@@ -36,7 +36,20 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-4">
+                                    <div class="col-lg-6 col-md-4">
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            <input type="text" name="username" value="{{ old('username') }}"
+                                                class="form-control @error('username') is-invalid @enderror"
+                                                placeholder="Username">
+                                            @error('username')
+                                                <span class="invalid-feedback">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-4">
                                         <div class="form-group">
                                             <label>Email</label>
                                             <input type="email" name="email" value="{{ old('email') }}"
@@ -49,7 +62,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-4">
+                                    <div class="col-lg-6 col-md-4">
                                         <div class="form-group">
                                             <label>Phone</label>
                                             <input type="text" name="nohp" value="{{ old('nohp') }}"
@@ -109,7 +122,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('nasabah.index') }}" class="btn btn-danger btn-sm">Batal</a>
+                                <a href="{{ route('admin.nasabah.index') }}" class="btn btn-danger btn-sm">Batal</a>
                                 <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                             </div>
                         </form>

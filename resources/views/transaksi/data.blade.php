@@ -23,13 +23,15 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <a href="javascript:void(0)" id="" class="btn btn-info btn-xs float-right"
-                                data-toggle="modal" data-target="#tambah">
-                                <i class="fas fa-plus-circle"></i> Tambah</a>
+                            @if (Auth::user()->type == 'admin' || Auth::user()->type == 'pengurus')
+                                <a href="javascript:void(0)" id="tambah" class="btn btn-info btn-xs float-right">
+                                    <i class="fas fa-plus-circle"></i> Tambah
+                                </a>
+                            @endif
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="data-table" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -39,41 +41,12 @@
                                         <th>Jenis Sampah</th>
                                         <th>Berat</th>
                                         <th>Total</th>
-                                        <th>Action</th>
+                                        @if (Auth::user()->type == 'admin' || Auth::user()->type == 'pengurus')
+                                            <th>Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @php
-                                        $no = 1;
-                                    @endphp
-                                    @foreach ($transaksi as $trans)
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td>{{ $trans->created_at->format('d-m-Y') }}</td>
-                                            <td>{{ $trans->nasabah->name }}</td>
-                                            <td>{{ $trans->user->name }}</td>
-                                            <td>{{ $trans->sampah->jenis }}</td>
-                                            <td>{{ $trans->berat }} Kg</td>
-                                            <td>{{ $trans->total }}</td>
-                                            <td>
-                                                <div class="text-center">
-                                                    <form action="{{ route('transaksi.destroy', $trans->id) }}"
-                                                        method="POST">
-                                                        <a href="javascript:void(0)" class="btn btn-success btn-xs"
-                                                            data-toggle="modal" data-target="#edit{{ $trans->id }}">
-                                                            <i class="fa fa-edit" title="Edit Data"></i>
-                                                        </a>
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-xs">
-                                                            <i class="fa fa-trash" title="Hapus"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </div>
                     </div>
@@ -82,105 +55,111 @@
         </div>
     </section>
 
-    {{-- Modal Tambah --}}
-    <div class="modal fade" id="tambah">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Tambah Penjualan</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('transaksi.store') }}" method="POST" enctype="multipart/form-data">
-                        <div class="card">
+    @if (Auth::user()->type == 'admin' || Auth::user()->type == 'pengurus')
+        {{-- Modal Tambah --}}
+        <div class="modal fade" id="ajaxModel">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modelHeading"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="transaksiForm" name="transaksiForm" class="form-horizontal">
                             @csrf
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Nasabah</label>
-                                            <select class="form-control select2  @error('nasabah_id') is-invalid @enderror"
-                                                name="nasabah_id" style="width: 100%;">
-                                                <option>Pilih</option>
-                                                @foreach ($user as $nasabah)
-                                                    <option value="{{ $nasabah->id }}" @selected(old('nasabah_id') == $nasabah->id)>
-                                                        {{ $nasabah->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('nasabah_id')
-                                                <span class="invalid-feedback">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                            <div class="card">
+                                <input type="hidden" name="transaksi_id" id="transaksi_id">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nasabah</label>
+                                                <select
+                                                    class="form-control select2  @error('nasabah_id') is-invalid @enderror"
+                                                    name="nasabah_id" id="nasabah_id" style="width: 100%;">
+                                                    <option>Pilih</option>
+                                                    @foreach ($user as $nasabah)
+                                                        <option value="{{ $nasabah->id }}" @selected(old('nasabah_id') == $nasabah->id)>
+                                                            {{ $nasabah->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('nasabah_id')
+                                                    <span class="invalid-feedback">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Jenis Sampah</label>
-                                            <select class="form-control @error('sampah_id') is-invalid @enderror"
-                                                name="sampah_id" id="sampah" style="width: 100%;">
-                                                <option>Pilih</option>
-                                                @foreach ($sampah as $sam)
-                                                    <option value="{{ $sam->id }}" @selected(old('sampah_id') == $sam->id)>
-                                                        {{ $sam->jenis }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('sampah_id')
-                                                <span class="invalid-feedback">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Jenis Sampah</label>
+                                                <select class="form-control @error('sampah_id') is-invalid @enderror"
+                                                    name="sampah_id" id="sampah_id" style="width: 100%;">
+                                                    <option>Pilih</option>
+                                                    @foreach ($sampah as $sam)
+                                                        <option value="{{ $sam->id }}" @selected(old('sampah_id') == $sam->id)>
+                                                            {{ $sam->jenis }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('sampah_id')
+                                                    <span class="invalid-feedback">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Berat<span class="text-danger"> * </span> <small>Silahkan pilih jenis
-                                                    sampah</small></label>
-                                            <input type="text" name="berat" id="berat"
-                                                class="form-control @error('berat') is-invalid @enderror"
-                                                placeholder="Berat" value="{{ old('berat') }}" disabled>
-                                            @error('berat')
-                                                <span class="invalid-feedback">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Berat<span class="text-danger"> * </span> <small>Silahkan pilih jenis
+                                                        sampah</small></label>
+                                                <input type="text" name="berat" id="berat"
+                                                    class="form-control @error('berat') is-invalid @enderror"
+                                                    placeholder="Berat">
+                                                @error('berat')
+                                                    <span class="invalid-feedback">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Total<span class="text-danger"> *</span></label>
-                                            <input type="text" name="total" id="total" value="{{ old('total') }}"
-                                                class="form-control @error('total') is-invalid @enderror"
-                                                placeholder="Total">
-                                            @error('total')
-                                                <span class="invalid-feedback">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Total<span class="text-danger"> *</span></label>
+                                                <input type="text" name="nilai" id="nilai"
+                                                    value="{{ old('nilai') }}"
+                                                    class="form-control @error('nilai') is-invalid @enderror"
+                                                    placeholder="nilai">
+                                                @error('nilai')
+                                                    <span class="invalid-feedback">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group text-center">
-                                            <label>Harga Sampah <span id="harga"></span></label><br>
-                                            <img id="preview" src="{{ url('img/sampah.png') }}" alt="preview image"
-                                                style="max-height: 150px;"><br>
+                                        <div class="col-md-12">
+                                            <div class="form-group text-center">
+                                                <label>Harga Sampah <span id="harga"></span></label><br>
+                                                <img id="preview" src="{{ url('img/sampah.png') }}" alt="preview image"
+                                                    style="max-height: 150px;"><br>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="modal-footer justify-content-flex-end">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary btn-sm" id="saveBtn"
+                                        value="create">Simpan
+                                    </button>
+                                </div>
                             </div>
-                            <div class="modal-footer justify-content-flex-end">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-
             </div>
         </div>
-    </div>
+    @endif
 
     {{-- Modal Detail Catatan --}}
     <div class="modal fade" id="detailcatatan">
@@ -252,31 +231,228 @@
 
 @section('script')
     <script>
-        $(document).on('change', '#sampah', function() {
-            var sampah_id = $(this).val();
-            $.get("{{ route('transaksi.index') }}" + "/" + sampah_id + "/sampah", function(data) {
-                $("#harga").html("Per 1 Kg = Rp. " + data.harga_nasabah);
-                $('#preview').attr('src', "{{ url('storage/sampah') }}" + "/" + data.gambar);
-                $("#berat").removeAttr("disabled");
-            });
-        });
-
-        $("#berat").keyup(function() {
-            var berat = this.value;
-            var sampah_id = $("#sampah").val();
-            $.get("{{ route('transaksi.index') }}" + "/" + sampah_id + "/sampah", function(data) {
-                var total = parseFloat(berat) * parseFloat(data.harga_nasabah);
-                $("#total").val(total);
-            });
-        });
-
         $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["excel", "pdf", "print"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+            });
+
+
+            @if (Auth::user()->type == 'admin' || Auth::user()->type == 'pengurus')
+                var table = $("#data-table").DataTable({
+                    processing: true,
+                    serverSide: true,
+                    responsive: true,
+                    lengthChange: false,
+                    autoWidth: false,
+                    dom: 'Bfrtip',
+                    buttons: ["excel", "pdf", "print", "colvis"],
+                    ajax: "{{ route(Auth::user()->type . '.transaksi.index') }}",
+                    columns: [{
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex'
+                        },
+                        {
+                            data: 'tanggal',
+                            name: 'tanggal'
+                        },
+                        {
+                            data: 'nasabah',
+                            name: 'nasabah'
+                        },
+                        {
+                            data: 'petugas',
+                            name: 'petugas'
+                        },
+                        {
+                            data: 'sampah',
+                            name: 'sampah'
+                        },
+                        {
+                            data: 'berat',
+                            name: 'berat'
+                        },
+                        {
+                            data: 'nilai',
+                            name: 'nilai'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            searchable: false
+                        },
+                    ]
+                })
+
+                $("#tambah").click(function() {
+                    $("#saveBtn").val("create-transaksi");
+                    $("#transaksi_id").val("");
+                    $("#transaksiForm").trigger("reset");
+                    $("#modelHeading").html("Tambah Transaksi");
+                    $("#ajaxModel").modal("show");
+                });
+
+                $("body").on("click", ".edit", function() {
+                    var transaksi = $(this).data("id");
+                    $.get("{{ route(Auth::user()->type . '.transaksi.index') }}" + "/" + transaksi +
+                        "/edit",
+                        function(data) {
+                            $("#ajaxModel").modal("show");
+                            $("#modelHeading").html("Edit Transaksi");
+                            $("#nasabah_id").val(data.nasabah_id);
+                            $("#sampah_id").val(data.sampah_id);
+                            $("#berat").val(data.berat);
+                            $("#nilai").val(data.nilai);
+                        });
+                });
+
+                $(document).on('change', '#sampah_id', function() {
+                    var sampah_id = $(this).val();
+                    $.get("{{ route(Auth::user()->type . '.transaksi.index') }}" + "/" + sampah_id +
+                        "/sampah",
+                        function(data) {
+                            $("#harga").html("Per 1 Kg = Rp. " + data.harga_nasabah);
+                            $('#preview').attr('src', "{{ url('storage/sampah') }}" + "/" + data
+                                .gambar);
+                            $("#berat").removeAttr("disabled");
+                        });
+                });
+
+                $("#berat").keyup(function() {
+                    var berat = this.value;
+                    var sampah_id = $("#sampah_id").val();
+                    $.get("{{ route(Auth::user()->type . '.transaksi.index') }}" + "/" + sampah_id +
+                        "/sampah",
+                        function(data) {
+                            var nilai = parseFloat(berat) * parseFloat(data.harga_nasabah);
+                            $("#nilai").val(nilai);
+                        });
+                });
+
+                $("#saveBtn").click(function(e) {
+                    e.preventDefault();
+                    $(this).html(
+                        "<span class='spinner-border spinner-border-sm'></span><span class='visually-hidden'><i> menyimpan...</i></span>"
+                    );
+                    var transaksi_id = $("#transaksi_id").val();
+                    if (transaksi_id == '') {
+                        $.ajax({
+                            data: $("#transaksiForm").serialize(),
+                            url: "{{ route(Auth::user()->type . '.transaksi.store') }}",
+                            type: "POST",
+                            dataType: "json",
+                            success: function(data) {
+                                if (data.errors) {
+                                    $('.alert-danger').html('');
+                                    $.each(data.errors, function(key, value) {
+                                        $('.alert-danger').show();
+                                        $('.alert-danger').append('<strong><li>' +
+                                            value +
+                                            '</li></strong>');
+                                        $(".alert-danger").fadeOut(5000);
+                                        $("#saveBtn").html("Simpan");
+                                    });
+                                } else {
+                                    table.draw();
+                                    $('#transaksiForm').trigger("reset");
+                                    $("#saveBtn").html("Simpan");
+                                    $('#ajaxModel').modal('hide');
+                                }
+                            },
+                        });
+                    } else {
+                        var transaksi_id = $("#transaksi_id").val();
+                        $.ajax({
+                            data: $("#transaksiForm").serialize(),
+                            url: "{{ route(Auth::user()->type . '.transaksi.store') }}" + "/" +
+                                transaksi_id + "/update",
+                            type: "POST",
+                            dataType: "json",
+                            success: function(data) {
+                                if (data.errors) {
+                                    $('.alert-danger').html('');
+                                    $.each(data.errors, function(key, value) {
+                                        $('.alert-danger').show();
+                                        $('.alert-danger').append('<strong><li>' +
+                                            value +
+                                            '</li></strong>');
+                                        $(".alert-danger").fadeOut(5000);
+                                        $("#saveBtn").html("Simpan");
+                                    });
+                                } else {
+                                    table.draw();
+                                    alertSuccess(data.success);
+                                    $('#transaksiForm').trigger("reset");
+                                    $("#saveBtn").html("Simpan");
+                                    $('#ajaxModel').modal('hide');
+                                }
+                            },
+                        });
+                    }
+                });
+
+
+                $("body").on("click", ".delete", function() {
+                    var transaksi_id = $(this).data("id");
+                    confirm("Are You sure want to delete !");
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ route(Auth::user()->type . '.transaksi.index') }}" + "/" +
+                            transaksi_id + "/destroy",
+                        data: {
+                            _token: "{!! csrf_token() !!}",
+                        },
+                        success: function(data) {
+                            table.draw();
+                        },
+                        error: function(data) {
+                            console.log("Error:", data);
+                        },
+                    });
+                });
+            @else
+                var table = $("#data-table").DataTable({
+                    processing: true,
+                    serverSide: true,
+                    responsive: true,
+                    lengthChange: false,
+                    autoWidth: false,
+                    dom: 'Bfrtip',
+                    buttons: ["excel", "pdf", "print", "colvis"],
+                    ajax: "{{ route(Auth::user()->type . '.transaksi.index') }}",
+                    columns: [{
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex'
+                        },
+                        {
+                            data: 'tanggal',
+                            name: 'tanggal'
+                        },
+                        {
+                            data: 'nasabah',
+                            name: 'nasabah'
+                        },
+                        {
+                            data: 'petugas',
+                            name: 'petugas'
+                        },
+                        {
+                            data: 'sampah',
+                            name: 'sampah'
+                        },
+                        {
+                            data: 'berat',
+                            name: 'berat'
+                        },
+                        {
+                            data: 'nilai',
+                            name: 'nilai'
+                        },
+                    ]
+                })
+            @endif
         });
     </script>
 @endsection

@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Saldo;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class NasabahController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $menu = 'Nasabah';
-        $customers = User::where('type', 0)->get();
+        $customers = User::where('type', 0)->latest()->get();
         return view('nasabah.data', compact('menu', 'customers'));
     }
 
@@ -23,8 +30,15 @@ class NasabahController extends Controller
         return view('nasabah.create', compact('menu'));
     }
 
+    public function show(User $user)
+    {
+        return response()->json($user);
+    }
+
     public function store(Request $request)
     {
+
+        // dd($request);
         $this->validate($request, [
             'name' => 'required',
             'username' => 'required|unique:users,username',
@@ -37,7 +51,7 @@ class NasabahController extends Controller
         $photo = $request->file('photo');
         $photo->storeAs('public/photo', $photo->hashName());
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
@@ -48,7 +62,12 @@ class NasabahController extends Controller
             'type' => 0,
         ]);
 
-        return redirect()->route('nasabah.index')->with(['success', 'Nasabah Berhasil ditambah']);
+        $saldo = new Saldo;
+        $saldo->nasabah_id = $user->id;
+        $saldo->saldo = 0;
+        $saldo->save();
+
+        return redirect()->route(Auth::user()->type . '.nasabah.index')->with(['success', 'Nasabah Berhasil ditambah']);
     }
 
     public function edit(User $user)
@@ -60,11 +79,11 @@ class NasabahController extends Controller
 
     public function update(Request $request, User $user)
     {
+
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|unique:users,email',
+            'email' => 'required',
             'nohp' => 'required',
-            'type' => 'required',
             'alamat' => 'required',
         ]);
 
@@ -85,7 +104,6 @@ class NasabahController extends Controller
         } else {
             $user->update([
                 'name' => $request->name,
-                'username' => $request->username,
                 'email' => $request->email,
                 'nohp' => $request->nohp,
                 'type' => 0,
@@ -93,7 +111,7 @@ class NasabahController extends Controller
             ]);
         }
 
-        return redirect()->route('nasabah.index')->with(['success', 'Nasabah Berhasil diupdate']);
+        return redirect()->route(Auth::user()->type . '.nasabah.index')->with(['success', 'Nasabah Berhasil diupdate']);
     }
 
     public function password(Request $request, User $user)
@@ -107,13 +125,13 @@ class NasabahController extends Controller
                 $request->password
             ),
         ]);
-        return redirect()->route('nasabah.index')->with(['success', 'Password Nasabah Berhasil diupdate']);
+        return redirect()->route(Auth::user()->type . '.nasabah.index')->with(['success', 'Password Nasabah Berhasil diupdate']);
     }
 
     public function destroy(User $user)
     {
         Storage::delete('public/photo/' . $user->photo);
         $user->delete();
-        return redirect()->route('nasabah.index')->with(['success' => 'Nasabah Berhasil Dihapus!']);
+        return redirect()->route(Auth::user()->type . '.nasabah.index')->with(['success' => 'Nasabah Berhasil Dihapus!']);
     }
 }

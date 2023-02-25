@@ -23,10 +23,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <a href="javascript:void(0)" id="" class="btn btn-info btn-xs float-right"
-                                data-toggle="modal" data-target="#tambah">
-                                <i class="fas fa-plus-circle"></i> Tambah
-                            </a>
+                            @if (Auth::user()->type == 'admin')
+                                <a href="javascript:void(0)" id="" class="btn btn-info btn-xs float-right"
+                                    data-toggle="modal" data-target="#tambah">
+                                    <i class="fas fa-plus-circle"></i> Tambah
+                                </a>
+                            @endif
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -38,7 +40,10 @@
                                         <th>Harga Nasabah</th>
                                         <th>Harga Pengepul</th>
                                         <th>Gambar</th>
-                                        <th>Action</th>
+                                        @if (Auth::user()->type == 'admin')
+                                            <th>Action</th>
+                                        @endif
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,21 +59,24 @@
                                             <td><img src="{{ url('storage/sampah', $samp->gambar) }}" width="50px"
                                                     class="img-fluid" alt="">
                                             </td>
-                                            <td>
-                                                <div class="text-center">
-                                                    <form action="{{ route('sampah.destroy', $samp->id) }}" method="POST">
-                                                        <a href="javascript:void(0)" class="btn btn-success btn-xs"
-                                                            data-toggle="modal" data-target="#edit{{ $samp->id }}">
-                                                            <i class="fa fa-edit" title="Edit Data"></i>
-                                                        </a>
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-xs">
-                                                            <i class="fa fa-trash" title="Hapus"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
+                                            @if (Auth::user()->type == 'admin')
+                                                <td>
+                                                    <div class="text-center">
+                                                        <form action="{{ route('sampah.destroy', $samp->id) }}"
+                                                            method="POST">
+                                                            <a href="javascript:void(0)" class="btn btn-success btn-xs"
+                                                                data-toggle="modal" data-target="#edit{{ $samp->id }}">
+                                                                <i class="fa fa-edit" title="Edit Data"></i>
+                                                            </a>
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-xs">
+                                                                <i class="fa fa-trash" title="Hapus"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            @endif
                                         </tr>
                                         {{-- Modat Edit --}}
                                         <div class="modal fade" id="edit{{ $samp->id }}">

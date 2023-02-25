@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sampah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class SampahController extends Controller
 {
@@ -16,7 +17,7 @@ class SampahController extends Controller
     public function index()
     {
         $menu = 'Jenis Sampah';
-        $sampah = Sampah::get();
+        $sampah = Sampah::latest()->get();
         return view('jenis-sampah.data', compact('menu', 'sampah'));
     }
 
@@ -41,7 +42,7 @@ class SampahController extends Controller
             'gambar' => $gambar->hashName(),
         ]);
 
-        return redirect()->route('sampah.index')->with(['success', 'Jenis Sampah Berhasil ditambah']);
+        return redirect()->route(Auth::user()->type . '.sampah.index')->with(['success', 'Jenis Sampah Berhasil ditambah']);
     }
 
     public function update(Request $request, Sampah $sampah)
@@ -75,13 +76,13 @@ class SampahController extends Controller
             ]);
         }
 
-        return redirect()->route('sampah.index')->with(['success', 'Jenis Sampah Berhasil diupdate']);
+        return redirect()->route(Auth::user()->type . '.sampah.index')->with(['success', 'Jenis Sampah Berhasil diupdate']);
     }
 
     public function destroy(Sampah $sampah)
     {
         Storage::delete('public/sampah/' . $sampah->photo);
         $sampah->delete();
-        return redirect()->route('sampah.index')->with(['success' => 'Jenis Sampah Berhasil Dihapus!']);
+        return redirect()->route(Auth::user()->type . '.sampah.index')->with(['success' => 'Jenis Sampah Berhasil Dihapus!']);
     }
 }
