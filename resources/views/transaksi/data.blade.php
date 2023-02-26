@@ -237,8 +237,6 @@
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 },
             });
-
-
             @if (Auth::user()->type == 'admin' || Auth::user()->type == 'pengurus')
                 var table = $("#data-table").DataTable({
                     processing: true,

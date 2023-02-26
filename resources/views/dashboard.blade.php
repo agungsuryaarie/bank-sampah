@@ -19,15 +19,11 @@
 
     <section class="content">
         <div class="container-fluid">
-            <!-- Small boxes (Stat box) -->
             <div class="row">
-                <!-- Main content -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
+                {{-- <div class="col-lg-3 col-6">
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3>0</h3>
-
                             <p>Total Sampah</p>
                         </div>
                         <div class="icon">
@@ -37,11 +33,9 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-6">
-                    <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3>0</h3>
-
                             <p>Terjual</p>
                         </div>
                         <div class="icon">
@@ -51,11 +45,9 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-6">
-                    <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
                             <h3>0</h3>
-
                             <p>Tersedia</p>
                         </div>
                         <div class="icon">
@@ -63,22 +55,85 @@
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>0</h3>
-
-                            <p>Saldo</p>
+                </div> --}}
+                @if (Auth::user()->type == 'nasabah')
+                    <div class="col-lg-3 col-12">
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3>{{ $saldo->saldo }}</h3>
+                                <p>Saldo</p>
+                            </div>
+                            <div class="icon">
+                                <i class="nav-icon fas fa-credit-card"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
                         </div>
-                        <div class="icon">
-                            <i class="nav-icon fas fa-credit-card"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
-                </div>
+                    <div class="col-lg-9 col-12">
+                        <div class="small-box bg-warning">
+                            <table id="data-table" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tanggal</th>
+                                        <th>Jenis Sampah</th>
+                                        <th>Berat</th>
+                                        <th>Total</th>
+                                        <th>Pengepul</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </section>
+@endsection
+
+@section('script')
+    <script>
+        $(function() {
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+            });
+            var table = $("#data-table").DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                lengthChange: false,
+                autoWidth: false,
+                ajax: "{{ route(Auth::user()->type . '.dashboard') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'tanggal',
+                        name: 'tanggal'
+                    },
+                    {
+                        data: 'sampah',
+                        name: 'sampah'
+                    },
+                    {
+                        data: 'berat',
+                        name: 'berat'
+                    },
+                    {
+                        data: 'nilai',
+                        name: 'nilai'
+                    },
+                    {
+                        data: 'petugas',
+                        name: 'petugas'
+                    },
+                ]
+            })
+        })
+    </script>
 @endsection

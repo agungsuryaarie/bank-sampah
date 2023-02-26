@@ -58,18 +58,17 @@
             </li>
         @endif
 
-        @if (Auth::user()->type == 'admin' || Auth::user()->type == 'bendahara')
+        @if (Auth::user()->type == 'nasabah')
             <li class="nav-item">
                 <a href="{{ route('keuangan.index') }}"
                     class="nav-link {{ request()->segment(1) == 'keuangan' ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-credit-card"></i>
+                    <i class="nav-icon fas fa-exchange-alt"></i>
                     <p>
-                        Keuangan
+                        Penarikan
                     </p>
                 </a>
             </li>
         @endif
-
         <li class="nav-item">
             <a href="{{ route('logout') }}"
                 onclick="event.preventDefault();

@@ -124,7 +124,7 @@ Route::prefix('bendahara')->middleware(['auth', 'user-access:bendahara'])->group
 All Nasabah Routes List
 --------------------------------------------
 --------------------------------------------*/
-Route::middleware(['auth', 'user-access:nasabah'])->group(function () {
+Route::prefix('nasabah')->middleware(['auth', 'user-access:nasabah'])->group(function () {
 
-    Route::get('/nasabah', [HomeController::class, 'nasabah'])->name('nasabah');
+    Route::get('dashboard', [HomeController::class, 'nasabah'])->name('nasabah.dashboard');
 });
