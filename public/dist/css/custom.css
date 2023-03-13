@@ -1,0 +1,126 @@
+.row-card {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-right: -7.5px;
+    margin-left: -7.5px;
+}
+
+.card-box {
+    border-radius: 0.35rem;
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+    display: block;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.card-box>.inner {
+    padding: 20px;
+}
+
+hr{
+    color: #fff;
+}
+
+.bg-light-gray{
+    background-color: rgb(247 247 244 / 89%);
+}
+
+.items-center{
+    align-items: center;
+}
+
+
+.row-flex {
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -7.5px;
+    margin-left: -7.5px;
+}
+
+.card-header-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color:rgb(44, 45, 45);
+    margin: 0;
+}
+
+.justify-beetwen{
+    justify-content: space-between;
+}
+
+.card-box .icon {
+    color: rgba(0,0,0,.15);
+    z-index: 0;
+}
+
+.card-box .icon>i.fa {
+    font-size: 70px;
+    top: 90px;
+}
+
+.card-box .icon>i {
+    position: absolute;
+    right: 50px;
+    transition: -webkit-transform .3s linear;
+    transition: transform .3s linear;
+    transition: transform .3s linear,-webkit-transform .3s linear;
+}
+
+.footer-pagination {
+    padding: 0.75rem 1.25rem;
+    background-color: rgb(255 255 255 / 3%);
+    border-top: 0 solid rgba(0,0,0,.125);
+}
+
+@media (max-width: 767.98px){
+.table th {
+    font-size: 14px;
+   }
+}
+@media (max-width: 767.98px){
+.table td {
+    font-size: 14px;
+  }
+}
+
+.row-menu{
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+.menu-responsive  {
+    flex: 1 0 30%;
+}
+.menu-responsive a {
+    display: flex;
+    flex: 1 0 8rem;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+    margin: 10px;
+    padding: 7px;
+}
+
+span{
+    text-align: center;
+}
+
+.menu-responsive i{
+font-size: 1.3rem;
+ margin-bottom: 0.7rem;
+ color: rgb(255, 25, 0);
+}
+
+@media (min-width: 1170px){
+    .menu-responsive {
+        display: none;
+      }
+    }
+    

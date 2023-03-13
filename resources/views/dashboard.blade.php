@@ -1,100 +1,75 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Dashboard</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    @include('layouts.menu-mobile')
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                {{-- <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>0</h3>
-                            <p>Total Sampah</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <div class="col-12">
+                    <div class="card">
+                        @if (Auth::user()->type == 'nasabah')
+                            <div class="card-body">
+                                <div class="row-card">
+                                    <div class="col-lg-6 col-12">
+                                        <div class="card-box bg-info">
+                                            <div class="inner">
+                                                <h5>Pemilik</h5>
+                                                <hr>
+                                                <p>Nama : </p>
+                                                <p>Email :</p>
+                                                <p>Telephone :</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="card-box bg-info">
+                                            <div class="inner">
+                                                <h5>Tabungan</h5>
+                                                <hr>
+                                                <p>Total Debit : Rp {{ $saldo->saldo }}</p>
+                                                <p>Total Kredit : Rp 0</p>
+                                                <p>Saldo Akhir : Rp {{ $saldo->saldo }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="invoice p-3 mb-3">
+                                    <div class="card-header ">
+                                        <h3 class="card-header-title text-center">Riwayat Transaksi</h3>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Tanggal Transaksi</th>
+                                                        <th>Keterangan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>23 Maret 2023</td>
+                                                        <td>Penarikan Saldo</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>0</h3>
-                            <p>Terjual</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>0</h3>
-                            <p>Tersedia</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div> --}}
-                @if (Auth::user()->type == 'nasabah')
-                    <div class="col-lg-3 col-12">
-                        <div class="small-box bg-danger">
-                            <div class="inner">
-                                <h3>{{ $saldo->saldo }}</h3>
-                                <p>Saldo</p>
-                            </div>
-                            <div class="icon">
-                                <i class="nav-icon fas fa-credit-card"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 col-12">
-                        <div class="small-box bg-warning">
-                            <table id="data-table" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal</th>
-                                        <th>Jenis Sampah</th>
-                                        <th>Berat</th>
-                                        <th>Total</th>
-                                        <th>Pengepul</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                @endif
             </div>
         </div>
     </section>
 @endsection
 
 @section('script')
-    <script>
+    {{-- <script>
         $(function() {
             $.ajaxSetup({
                 headers: {
@@ -135,5 +110,5 @@
                 ]
             })
         })
-    </script>
+    </script> --}}
 @endsection

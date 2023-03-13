@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -15,7 +14,7 @@
                     </ol>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
     <section class="content">
         <div class="container-fluid">
@@ -25,7 +24,7 @@
                         <div class="card-header">
                             <a href="javascript:void(0)" id="" class="btn btn-info btn-xs float-right"
                                 data-toggle="modal" data-target="#tambahsaldo">
-                                <i class="fas fa-credit-card"></i> Tambah Saldo</a>
+                                <i class="fas fa-credit-card"></i> Tarik Saldo</a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -62,7 +61,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Tambah Saldo Keuangan</h4>
+                    <h4 class="modal-title">Tarik Saldo</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

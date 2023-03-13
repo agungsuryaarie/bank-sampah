@@ -69,6 +69,31 @@
                 </a>
             </li>
         @endif
+
+        @if (Auth::user()->type == 'nasabah')
+            <li class="nav-item">
+                <a href="{{ route('keuangan.penjualan') }}"
+                    class="nav-link {{ request()->segment(1) == 'penjualan' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-history"></i>
+                    <p>
+                        Histori Penjualan
+                    </p>
+                </a>
+            </li>
+        @endif
+        @if (Auth::user()->type == 'nasabah')
+            <li class="nav-item">
+                <a href="{{ route('keuangan.penarikan') }}"
+                    class="nav-link {{ request()->segment(1) == 'penarikan' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-history"></i>
+                    <p>
+                        Histori Penarikan
+                    </p>
+                </a>
+            </li>
+        @endif
+
+
         <li class="nav-item">
             <a href="{{ route('logout') }}"
                 onclick="event.preventDefault();

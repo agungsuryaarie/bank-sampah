@@ -13,4 +13,18 @@ class KeuanganController extends Controller
 
         return view('keuangan.data', compact('menu'));
     }
+    public function penjualan()
+    {
+        $menu = 'Histori Penjualan';
+        // $user = User::first();
+
+        return view('history.penjualan', compact('menu'));
+    }
+    public function penarikan()
+    {
+        $menu = 'Histori Penarikan';
+        // $user = User::first();
+
+        return view('history.penarikan', compact('menu'));
+    }
 }

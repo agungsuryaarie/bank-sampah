@@ -28,6 +28,8 @@ Route::get('/', [DashboardController::class, 'login']);
 
 // keuangan
 Route::get('keuangan', [KeuanganController::class, 'index'])->name('keuangan.index');
+Route::get('histori/penjualan', [KeuanganController::class, 'penjualan'])->name('keuangan.penjualan');
+Route::get('histori/penarikan', [KeuanganController::class, 'penarikan'])->name('keuangan.penarikan');
 
 Auth::routes();
 
