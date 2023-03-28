@@ -64,7 +64,7 @@
                     class="nav-link {{ request()->segment(2) == 'transaksi' ? 'active' : '' }}">
                     <i class="nav-icon fas fa-exchange-alt"></i>
                     <p>
-                        Transaksi
+                        Penarikan
                     </p>
                 </a>
             </li>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Penarikan;
 use App\Models\Saldo;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
@@ -47,9 +48,10 @@ class HomeController extends Controller
 
     public function Transaksi(Request $request)
     {
-        $menu = 'Transaksi';
-        $transaksi = Transaksi::where('nasabah_id', Auth::user()->id)->get();
-        return view('nasabah.transaksi', compact('menu', 'transaksi'));
+        $menu = 'Penarikan';
+        $penarikan = Penarikan::where('nasabah_id', Auth::user()->id)->get();
+        $saldo = Transaksi::where('nasabah_id', Auth::user()->id)->where('status', 'debit')->sum('nilai');
+        return view('nasabah.transaksi', compact('menu', 'penarikan', 'saldo'));
     }
 
     public function penjualan()

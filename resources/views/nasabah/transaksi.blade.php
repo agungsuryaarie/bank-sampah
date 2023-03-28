@@ -34,16 +34,16 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>Keterangan</th>
-                                        <th>Debit</th>
-                                        <th>Kredit</th>
+                                        <th>Jumlah Penarikan</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php
                                         $no = 1;
                                     @endphp
-                                    @foreach ($transaksi as $t)
+                                    @foreach ($penarikan as $t)
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $t->created_at->format('d/m/Y') }}</td>
@@ -87,13 +87,12 @@
                         <form>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label>Tanggal<span class="text-danger"> *</span></label>
-                                    <input type="text" class="form-control" id="" placeholder="Jenis Sampah"
-                                        disabled>
+                                    <label>Saldo Tersedia<span class="text-danger"> *</span></label>
+                                    <input type="text" value="Rp {{ $saldo }}" class="form-control" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <label>Jumlah<span class="text-danger"> *</span></label>
-                                    <input type="text" class="form-control" id="" placeholder="Nama Pengepul">
+                                    <label>Jumlah Penarikan<span class="text-danger"> *</span></label>
+                                    <input type="text" class="form-control">
                                 </div>
                             </div>
                         </form>

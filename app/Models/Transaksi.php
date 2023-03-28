@@ -12,7 +12,7 @@ class Transaksi extends Model
 
     protected $table = 'transaksi';
 
-    protected $fillable = ['petugas_id', 'sampah_id', 'nasabah_id', 'berat', 'nilai', 'status'];
+    protected $fillable = ['petugas_id', 'sampah_id', 'nasabah_id', 'berat', 'nilai', 'status', 'penarikan_id'];
 
     protected function stauts(): Attribute
     {
@@ -34,5 +34,10 @@ class Transaksi extends Model
     public function nasabah()
     {
         return $this->belongsTo(User::class, 'nasabah_id')->where('type', 0);
+    }
+
+    public function penarikan()
+    {
+        return $this->belongsTo(Penarikan::class);
     }
 }

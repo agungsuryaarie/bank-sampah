@@ -22,7 +22,6 @@ class TransaksiController extends Controller
         $menu = 'Transaksi';
         $user = User::where('type', 0)->get();
         $sampah = Sampah::get();
-
         if ($request->ajax()) {
             $data = Transaksi::where('status', 'debit')->latest()->get();
             return Datatables::of($data)
@@ -71,7 +70,7 @@ class TransaksiController extends Controller
             'nasabah_id' => $request->nasabah_id,
             'harga_nasabah' => $request->harga_nasabah,
             'berat' => $request->berat,
-            'status' => 1,
+            'status' => 'debit',
             'nilai' => $request->nilai,
         ]);
 
