@@ -15,7 +15,7 @@
                                             <div class="inner">
                                                 <h5>Pemilik</h5>
                                                 <hr>
-                                                <p>Nama : </p>
+                                                <p>Nama :{{ $saldo->nasabah_id }} </p>
                                                 <p>Email :</p>
                                                 <p>Telephone :</p>
                                             </div>
