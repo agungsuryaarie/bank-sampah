@@ -228,8 +228,8 @@
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('sampah.store') }}" method="POST" enctype="multipart/form-data">
-                        <div class="card">
-                            @csrf
+                        @csrf
+                        <div class="card">                         
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-6 md-4">

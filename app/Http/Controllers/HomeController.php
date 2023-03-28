@@ -46,31 +46,6 @@ class HomeController extends Controller
         return view('dashboard', compact('saldo'));
     }
 
-    public function Transaksi(Request $request)
-    {
-        $menu = 'Penarikan';
-        $penarikan = Penarikan::where('nasabah_id', Auth::user()->id)->get();
-        $saldo = Transaksi::where('nasabah_id', Auth::user()->id)->where('status', 'debit')->sum('nilai');
-        return view('nasabah.transaksi', compact('menu', 'penarikan', 'saldo'));
-    }
-
-    public function penjualan()
-    {
-        $menu = 'Histori Penjualan';
-        $penjualan = Transaksi::where('nasabah_id', Auth::user()->id)->where('status', 'debit')->paginate(5);
-
-        return view('nasabah.penjualan', compact('menu', 'penjualan'));
-    }
-
-    public function penarikan()
-    {
-        $menu = 'Histori Penarikan';
-        $penarikan = Transaksi::where('nasabah_id', Auth::user()->id)->where('status', 'kredit')->paginate(5);
-        $saldo = Transaksi::where('nasabah_id', Auth::user()->id)->where('status', 'kredit')->sum('nilai');
-
-        return view('nasabah.penarikan', compact('menu', 'penarikan', 'saldo'));
-    }
-
     public function pengurus()
     {
         return view('dashboard');

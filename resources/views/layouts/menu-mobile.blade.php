@@ -8,17 +8,17 @@
                         <span>Dashboard</span></a>
                 </div>
                 <div class="menu-responsive">
-                    <a href="{{ route('nasabah.transaksi') }}">
+                    <a href="{{ route('nasabah.penarikan') }}">
                         <i class="fas fa-exchange-alt"></i>
                         <span>Transaksi</span></a>
                 </div>
                 <div class="menu-responsive">
-                    <a href="{{ route('nasabah.penjualan') }}">
+                    <a href="{{ route('nasabah.hispenjualan') }}">
                         <i class="fa fa-history"></i>
                         <span>Histori Penjualan</span></a>
                 </div>
                 <div class="menu-responsive">
-                    <a href="{{ route('nasabah.penarikan') }}">
+                    <a href="{{ route('nasabah.hispenarikan') }}">
                         <i class="fa fa-history"></i>
                         <span>Histori Penarikan</span></a>
                 </div>

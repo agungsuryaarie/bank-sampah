@@ -58,10 +58,10 @@
             </li>
         @endif
 
-        @if (Auth::user()->type == 'nasabah')
+        @if (Auth::user()->type == 'bendahara')
             <li class="nav-item">
-                <a href="{{ route('nasabah.transaksi') }}"
-                    class="nav-link {{ request()->segment(2) == 'transaksi' ? 'active' : '' }}">
+                <a href="{{ route(Auth::user()->type . '.penarikan') }}"
+                    class="nav-link {{ request()->segment(2) == 'penarikan' ? 'active' : '' }}">
                     <i class="nav-icon fas fa-exchange-alt"></i>
                     <p>
                         Penarikan
@@ -72,8 +72,20 @@
 
         @if (Auth::user()->type == 'nasabah')
             <li class="nav-item">
-                <a href="{{ route('nasabah.penjualan') }}"
-                    class="nav-link {{ request()->segment(2) == 'penjualan' ? 'active' : '' }}">
+                <a href="{{ route('nasabah.penarikan') }}"
+                    class="nav-link {{ request()->segment(2) == 'penarikan' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-exchange-alt"></i>
+                    <p>
+                        Penarikan
+                    </p>
+                </a>
+            </li>
+        @endif
+
+        @if (Auth::user()->type == 'nasabah')
+            <li class="nav-item">
+                <a href="{{ route('nasabah.hispenjualan') }}"
+                    class="nav-link {{ request()->segment(2) == 'hispenjualan' ? 'active' : '' }}">
                     <i class="nav-icon fas fa-history"></i>
                     <p>
                         Histori Penjualan
@@ -83,8 +95,8 @@
         @endif
         @if (Auth::user()->type == 'nasabah')
             <li class="nav-item">
-                <a href="{{ route('nasabah.penarikan') }}"
-                    class="nav-link {{ request()->segment(2) == 'penarikan' ? 'active' : '' }}">
+                <a href="{{ route('nasabah.hispenarikan') }}"
+                    class="nav-link {{ request()->segment(2) == 'hispenarikan' ? 'active' : '' }}">
                     <i class="nav-icon fas fa-history"></i>
                     <p>
                         Histori Penarikan

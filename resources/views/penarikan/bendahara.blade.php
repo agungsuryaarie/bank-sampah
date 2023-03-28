@@ -34,9 +34,11 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Tanggal</th>
+                                        <th>Nasabah</th>
+                                        <th>Email</th>
+                                        <th>Alamat</th>
                                         <th>Jumlah Penarikan</th>
                                         <th>Status</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,16 +49,37 @@
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $t->created_at->format('d/m/Y') }}</td>
-                                            <td>{{ $t->status }}</td>
+                                            <td>{{ $t->nasabah->name }}</td>
+                                            <td>{{ $t->nasabah->email }}</td>
+                                            <td>{{ $t->nasabah->alamat }}</td>
+                                            <td>Rp {{ $t->nilai }}</td>
                                             <td>
-                                                @if ($t->status == 'debit')
-                                                    {{ $t->nilai }}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($t->status == 'kredit')
-                                                    {{ $t->nilai }}
-                                                @endif
+                                                <div class="text-center">
+                                                    @if ($t->status == 1)
+                                                        <form action="{{ route('bendahara.penarikan.update', $t->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="status" value="2"
+                                                                class="form-control">
+                                                            <button type="submit" class="btn btn-success btn-xs">
+                                                                Terima
+                                                            </button>
+                                                        </form>
+                                                        <form action="{{ route('bendahara.penarikan.update', $t->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="status" value="3"
+                                                                class="form-control">
+                                                            <button type="submit" class="btn btn-danger btn-xs">
+                                                                Tolak
+                                                            </button>
+                                                        </form>
+                                                    @elseif ($t->status == 2)
+                                                        <button class="btn btn-success btn-xs"> Diterima </button>
+                                                    @else
+                                                        <button class="btn btn-danger btn-xs"> Ditolak </button>
+                                                    @endif
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -69,43 +92,6 @@
             </div>
         </div>
     </section>
-
-    {{-- Modat Tambah saldo --}}
-    <div class="modal fade" id="tambahsaldo">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Tarik Saldo</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="card">
-                        <!-- /.card-header -->
-                        <!-- form start -->
-                        <form>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label>Saldo Tersedia<span class="text-danger"> *</span></label>
-                                    <input type="text" value="Rp {{ $saldo }}" class="form-control" disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label>Jumlah Penarikan<span class="text-danger"> *</span></label>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- /.card -->
-                </div>
-                <div class="modal-footer justify-content-flex-end">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 

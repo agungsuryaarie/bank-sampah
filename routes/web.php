@@ -6,7 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NasabahController;
-use App\Http\Controllers\KeuanganController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\PenarikanController;
 use App\Http\Controllers\SampahController;
 use App\Http\Controllers\TransaksiController;
 
@@ -116,6 +117,10 @@ Route::prefix('bendahara')->middleware(['auth', 'user-access:bendahara'])->group
 
     // transaksi
     Route::get('transaksi', [TransaksiController::class, 'index'])->name('bendahara.transaksi.index');
+
+    // penarikan
+    Route::get('penarikan', [PenarikanController::class, 'bendahara'])->name('bendahara.penarikan');
+    Route::post('penarikan/update/{penarikan}', [PenarikanController::class, 'aksi'])->name('bendahara.penarikan.update');
 });
 
 /*------------------------------------------
@@ -126,7 +131,14 @@ All Nasabah Routes List
 Route::prefix('nasabah')->middleware(['auth', 'user-access:nasabah'])->group(function () {
 
     Route::get('dashboard', [HomeController::class, 'nasabah'])->name('nasabah.dashboard');
-    Route::get('transaksi', [HomeController::class, 'transaksi'])->name('nasabah.transaksi');
-    Route::get('penjualan', [HomeController::class, 'penjualan'])->name('nasabah.penjualan');
-    Route::get('penarikan', [HomeController::class, 'penarikan'])->name('nasabah.penarikan');
+
+    // penarikan
+    Route::get('penarikan', [PenarikanController::class, 'index'])->name('nasabah.penarikan');
+    Route::post('penarikan/store', [PenarikanController::class, 'store'])->name('nasabah.penarikan.store');
+    Route::post('penarikan/update/{penarikan}', [PenarikanController::class, 'update'])->name('nasabah.penarikan.update');
+    Route::delete('penarikan/destroy/{penarikan}', [PenarikanController::class, 'destroy'])->name('nasabah.penarikan.destroy');
+
+    // history
+    Route::get('hispenjualan', [HistoryController::class, 'hispenjualan'])->name('nasabah.hispenjualan');
+    Route::get('hispenarikan', [HistoryController::class, 'hispenarikan'])->name('nasabah.hispenarikan');
 });

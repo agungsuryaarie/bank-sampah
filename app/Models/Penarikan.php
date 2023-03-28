@@ -12,4 +12,9 @@ class Penarikan extends Model
     protected $table = 'Penarikan';
 
     protected $fillable = ['nasabah_id', 'nilai', 'status', 'keterangan'];
+
+    public function nasabah()
+    {
+        return $this->belongsTo(User::class, 'nasabah_id')->where('type', 0);
+    }
 }
