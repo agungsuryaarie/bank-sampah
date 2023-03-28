@@ -26,10 +26,7 @@ use App\Http\Controllers\TransaksiController;
 // Login
 Route::get('/', [DashboardController::class, 'login']);
 
-// keuangan
-Route::get('keuangan', [KeuanganController::class, 'index'])->name('keuangan.index');
-Route::get('histori/penjualan', [KeuanganController::class, 'penjualan'])->name('keuangan.penjualan');
-Route::get('histori/penarikan', [KeuanganController::class, 'penarikan'])->name('keuangan.penarikan');
+
 
 Auth::routes();
 
@@ -129,4 +126,7 @@ All Nasabah Routes List
 Route::prefix('nasabah')->middleware(['auth', 'user-access:nasabah'])->group(function () {
 
     Route::get('dashboard', [HomeController::class, 'nasabah'])->name('nasabah.dashboard');
+    Route::get('transaksi', [HomeController::class, 'transaksi'])->name('nasabah.transaksi');
+    Route::get('penjualan', [HomeController::class, 'penjualan'])->name('nasabah.penjualan');
+    Route::get('penarikan', [HomeController::class, 'penarikan'])->name('nasabah.penarikan');
 });

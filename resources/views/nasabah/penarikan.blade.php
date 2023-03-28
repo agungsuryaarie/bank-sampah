@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @include('layouts.menu-mobile')
     <div class="content-header"></div>
     <section class="content">
         <div class="container-fluid">
@@ -12,7 +13,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12 table-responsive table-striped">
-                                <table class="table">
+                                <table id="example1" class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th width="3%">No</th>
@@ -21,19 +22,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>23 Maret 2023 </td>
-                                            <td>Rp 16.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>23 Maret 2023 </td>
-                                            <td>Rp 20.000</td>
-                                        </tr>
+                                        @php
+                                            $no = 1;
+                                        @endphp
+                                        @foreach ($penarikan as $p)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $p->created_at->format('d/m/Y') }}</td>
+                                                <td>Rp {{ $p->nilai }}</td>
+                                            </tr>
+                                        @endforeach
                                         <tr>
                                             <th colspan="2"></th>
-                                            <th class="text-primary">Saldo Akhir : Rp 26.000</th>
+                                            <th class="text-primary">Saldo Akhir : Rp {{ $saldo }}</th>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -53,7 +54,6 @@
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
