@@ -15,9 +15,9 @@
                                             <div class="inner">
                                                 <h5>Pemilik</h5>
                                                 <hr>
-                                                <p>Nama :{{ $saldo->nasabah_id }} </p>
-                                                <p>Email :</p>
-                                                <p>Telephone :</p>
+                                                <p>Nama : {{ Auth::user()->name }}</p>
+                                                <p>Email : {{ Auth::user()->email }}</p>
+                                                <p>Telephone : {{ Auth::user()->nohp }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -39,22 +39,16 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12 table-responsive">
-                                            <table class="table table-striped">
+                                            <table id="data-table" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
                                                         <th>Tanggal Transaksi</th>
                                                         <th>Keterangan</th>
+                                                        <th>Nilai</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>23 Maret 2023</td>
-                                                        <td>Penarikan Saldo</td>
-                                                    </tr>
-
-                                                </tbody>
+                                                <tbody></tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -69,7 +63,7 @@
 @endsection
 
 @section('script')
-    {{-- <script>
+    <script>
         $(function() {
             $.ajaxSetup({
                 headers: {
@@ -92,23 +86,15 @@
                         name: 'tanggal'
                     },
                     {
-                        data: 'sampah',
-                        name: 'sampah'
-                    },
-                    {
-                        data: 'berat',
-                        name: 'berat'
+                        data: 'keterangan',
+                        name: 'keterangan'
                     },
                     {
                         data: 'nilai',
                         name: 'nilai'
-                    },
-                    {
-                        data: 'petugas',
-                        name: 'petugas'
-                    },
+                    }
                 ]
             })
         })
-    </script> --}}
+    </script>
 @endsection

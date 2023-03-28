@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @include('layouts.menu-mobile')
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -33,19 +34,32 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>keterangan</th>
+                                        <th>Keterangan</th>
                                         <th>Debit</th>
                                         <th>Kredit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($transaksi as $t)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $t->created_at->format('d/m/Y') }}</td>
+                                            <td>{{ $t->status }}</td>
+                                            <td>
+                                                @if ($t->status == 'debit')
+                                                    {{ $t->nilai }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($t->status == 'kredit')
+                                                    {{ $t->nilai }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -103,7 +117,6 @@
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>

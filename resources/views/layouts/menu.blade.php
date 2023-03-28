@@ -60,11 +60,11 @@
 
         @if (Auth::user()->type == 'nasabah')
             <li class="nav-item">
-                <a href="{{ route('keuangan.index') }}"
-                    class="nav-link {{ request()->segment(1) == 'keuangan' ? 'active' : '' }}">
+                <a href="{{ route('nasabah.transaksi') }}"
+                    class="nav-link {{ request()->segment(2) == 'transaksi' ? 'active' : '' }}">
                     <i class="nav-icon fas fa-exchange-alt"></i>
                     <p>
-                        Penarikan
+                        Transaksi
                     </p>
                 </a>
             </li>
@@ -72,8 +72,8 @@
 
         @if (Auth::user()->type == 'nasabah')
             <li class="nav-item">
-                <a href="{{ route('keuangan.penjualan') }}"
-                    class="nav-link {{ request()->segment(1) == 'penjualan' ? 'active' : '' }}">
+                <a href="{{ route('nasabah.penjualan') }}"
+                    class="nav-link {{ request()->segment(2) == 'penjualan' ? 'active' : '' }}">
                     <i class="nav-icon fas fa-history"></i>
                     <p>
                         Histori Penjualan
@@ -83,8 +83,8 @@
         @endif
         @if (Auth::user()->type == 'nasabah')
             <li class="nav-item">
-                <a href="{{ route('keuangan.penarikan') }}"
-                    class="nav-link {{ request()->segment(1) == 'penarikan' ? 'active' : '' }}">
+                <a href="{{ route('nasabah.penarikan') }}"
+                    class="nav-link {{ request()->segment(2) == 'penarikan' ? 'active' : '' }}">
                     <i class="nav-icon fas fa-history"></i>
                     <p>
                         Histori Penarikan

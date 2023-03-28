@@ -2,6 +2,7 @@
 
 
 @section('content')
+    @include('layouts.menu-mobile')
     <div class="content-header"></div>
     <section class="content">
         <div class="container-fluid">
@@ -13,7 +14,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12 table-responsive">
-                                <table class="table table-striped">
+                                <table id="example1" class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -24,13 +25,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>23 Maret 2023</td>
-                                            <td>Plastik</td>
-                                            <td>2 Kg</td>
-                                            <td>Rp 12000</td>
-                                        </tr>
+                                        @php
+                                            $no = 1;
+                                        @endphp
+                                        @foreach ($penjualan as $jual)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $jual->created_at->format('d/m/Y') }}</td>
+                                                <td>{{ $jual->sampah->jenis }}</td>
+                                                <td>{{ $jual->berat }} Kg</td>
+                                                <td>Rp {{ $jual->nilai }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -38,6 +44,16 @@
                     </div>
                 </div>
             </div>
-        </div>
     </section>
+@endsection
+@section('script')
+    <script>
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+    </script>
 @endsection
