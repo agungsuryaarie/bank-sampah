@@ -21,7 +21,7 @@ class HistoryController extends Controller
     {
         $menu = 'Histori Penarikan';
         $penarikan = Transaksi::where('nasabah_id', Auth::user()->id)->where('status', 'kredit')->paginate(5);
-        $transaksi = Transaksi::where('nasabah_id', Auth::user()->id)->where('status', 'kredit')->sum('nilai');
+        $transaksi = Transaksi::where('nasabah_id', Auth::user()->id)->where('status', 'debit')->sum('nilai');
         $ditarik = Penarikan::where('nasabah_id', Auth::user()->id)->sum('nilai');
         $saldo = $transaksi - $ditarik;
         // dd($transaksi);

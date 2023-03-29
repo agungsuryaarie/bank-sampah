@@ -18,7 +18,8 @@ class HomeController extends Controller
 
     public function nasabah(Request $request)
     {
-
+        $debit = Transaksi::where('nasabah_id', Auth::user()->id)->where('status', 'debit')->sum('nilai');
+        $kredit = Transaksi::where('nasabah_id', Auth::user()->id)->where('status', 'kredit')->sum('nilai');
         $saldo = Saldo::where('nasabah_id', Auth::user()->id)->first();
 
         if ($request->ajax()) {
@@ -43,7 +44,7 @@ class HomeController extends Controller
                 ->rawColumns(['keterangan'])
                 ->make(true);
         }
-        return view('dashboard', compact('saldo'));
+        return view('dashboard', compact('saldo', 'debit', 'kredit'));
     }
 
     public function pengurus()

@@ -26,8 +26,8 @@
                                             <div class="inner">
                                                 <h5>Tabungan</h5>
                                                 <hr>
-                                                <p>Total Debit : Rp {{ $saldo->saldo }}</p>
-                                                <p>Total Kredit : Rp 0</p>
+                                                <p>Total Debit : Rp {{ $debit }}</p>
+                                                <p>Total Kredit : Rp {{ $kredit }}</p>
                                                 <p>Saldo Akhir : Rp {{ $saldo->saldo }}</p>
                                             </div>
                                         </div>
