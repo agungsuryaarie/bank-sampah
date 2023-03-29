@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Penarikan;
+use App\Models\Saldo;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,6 +66,19 @@ class PenarikanController extends Controller
     {
         $penarikan->update([
             'status' => $request->status,
+        ]);
+
+        if ($request->status == 2) {
+            $saldo = Saldo::where('nasabah_id', $penarikan->nasabah_id)->first();
+            $saldo->saldo = $saldo->saldo - $penarikan->nilai;
+            $saldo->save();
+        }
+
+        Transaksi::create([
+            'nasabah_id' => $penarikan->nasabah_id,
+            'status' => 'kredit',
+            'nilai' => $penarikan->nilai,
+            'penarikan_id' => $penarikan->id,
         ]);
 
         return redirect()->route(Auth::user()->type . '.penarikan')->with(['success', 'Status Penarikan Berhasil Update']);
