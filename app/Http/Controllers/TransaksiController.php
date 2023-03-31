@@ -95,6 +95,7 @@ class TransaksiController extends Controller
             'berat' => 'required',
             'nilai' => 'required',
         ]);
+        // $transaksi = Transaksi::where('id', $id)->first();
 
         $saldo = Saldo::where('nasabah_id', $request->nasabah_id)->first();
         $kembalikan = $saldo->saldo - $transaksi->nilai;
@@ -107,11 +108,10 @@ class TransaksiController extends Controller
             'nasabah_id' => $request->nasabah_id,
             'harga_nasabah' => $request->harga_nasabah,
             'berat' => $request->berat,
-            'status' => 1,
+            'status' => 'debit',
             'nilai' => $request->nilai,
         ]);
-
-        return redirect()->route('transaksi.index')->with(['success', 'Transaksi Berhasil diupdate']);
+        return response()->json(['success' => 'Transaksi Berhasil diubah.']);
     }
 
     public function destroy(Transaksi $transaksi)

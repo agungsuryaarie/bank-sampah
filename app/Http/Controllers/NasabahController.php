@@ -67,7 +67,7 @@ class NasabahController extends Controller
         $saldo->saldo = 0;
         $saldo->save();
 
-        return redirect()->route(Auth::user()->type . '.nasabah.index')->with(['success', 'Nasabah Berhasil ditambah']);
+        return redirect()->route(Auth::user()->type . '.nasabah.index')->with(['success' => 'Nasabah Berhasil ditambah']);
     }
 
     public function edit(User $user)
@@ -111,7 +111,7 @@ class NasabahController extends Controller
             ]);
         }
 
-        return redirect()->route(Auth::user()->type . '.nasabah.index')->with(['success', 'Nasabah Berhasil diupdate']);
+        return redirect()->route(Auth::user()->type . '.nasabah.index')->with(['success' => 'Nasabah Berhasil diupdate']);
     }
 
     public function password(Request $request, User $user)
@@ -125,7 +125,7 @@ class NasabahController extends Controller
                 $request->password
             ),
         ]);
-        return redirect()->route(Auth::user()->type . '.nasabah.index')->with(['success', 'Password Nasabah Berhasil diupdate']);
+        return redirect()->route(Auth::user()->type . '.nasabah.index')->with(['success' => 'Password Nasabah Berhasil diupdate']);
     }
 
     public function destroy(User $user)

@@ -47,6 +47,7 @@
 
         <!-- Content-->
         <div class="content-wrapper">
+            <div id="alerts"></div>
             @yield('content')
         </div>
         <!-- /.content -->

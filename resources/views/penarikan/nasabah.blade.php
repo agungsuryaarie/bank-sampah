@@ -4,6 +4,12 @@
     @include('layouts.menu-mobile')
     <section class="content-header">
         <div class="container-fluid">
+            @if (Session::has('success'))
+                <div class="alert alert-success alert-dismissible fade show ml-2 mr-2 mt-2">
+                    <button type="button" class="close" data-dismiss="alert">
+                        &times;</button><strong>Success! </strong> {{ Session::get('success') }}
+                </div>
+            @endif
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>{{ $menu }}</h1>
@@ -90,7 +96,8 @@
                                                                     <div class="form-group">
                                                                         <label>Saldo Tersedia<span class="text-danger">
                                                                                 *</span></label>
-                                                                        <input type="text" value="Rp {{ $saldo }}"
+                                                                        <input type="text"
+                                                                            value="Rp {{ $totalsaldo }}"
                                                                             class="form-control" disabled>
                                                                     </div>
                                                                     <div class="form-group">
@@ -124,7 +131,7 @@
         </div>
     </section>
 
-    {{-- Modat Tambah saldo --}}
+    {{-- Modal Tambah saldo --}}
     <div class="modal fade" id="tambahsaldo">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -141,7 +148,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label>Saldo Tersedia<span class="text-danger"> *</span></label>
-                                    <input type="text" value="Rp {{ $saldo }}" class="form-control" disabled>
+                                    <input type="text" value="Rp {{ $totalsaldo }}" class="form-control" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>Jumlah Penarikan<span class="text-danger"> *</span></label>

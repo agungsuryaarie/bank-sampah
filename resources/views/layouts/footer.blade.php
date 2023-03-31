@@ -3,8 +3,15 @@
 </footer>
 </div>
 
+<script>
+    $(window).scrollTop(0);
+    setTimeout(function() {
+        $(".alert").alert("close");
+    }, 5000);
+</script>
 <!-- jQuery -->
 <script src="{{ url('plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ url('js/custom.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ url('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
@@ -28,8 +35,10 @@
 <!-- jquery-validation -->
 <script src="{{ url('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
 <script src="{{ url('plugins/jquery-validation/additional-methods.min.js') }}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @yield('script')
+
+
 </body>
 
 </html>

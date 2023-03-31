@@ -51,7 +51,7 @@ class UserController extends Controller
             'type' => $request->type,
         ]);
 
-        return redirect()->route('user.index')->with(['success', 'User Berhasil ditambah']);
+        return redirect()->route('user.index')->with(['success' => 'User Berhasil ditambah']);
     }
 
     public function edit(User $user)
@@ -94,7 +94,7 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect()->route('user.index')->with(['success', 'User Berhasil diupdate']);
+        return redirect()->route('user.index')->with(['success' => 'User Berhasil diupdate']);
     }
 
     public function password(Request $request, User $user)
@@ -108,7 +108,7 @@ class UserController extends Controller
                 $request->password
             ),
         ]);
-        return redirect()->route('user.index')->with(['success', 'Password User Berhasil diupdate']);
+        return redirect()->route('user.index')->with(['success' => 'Password User Berhasil diupdate']);
     }
 
     public function destroy(User $user)

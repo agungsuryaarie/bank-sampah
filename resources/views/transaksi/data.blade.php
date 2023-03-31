@@ -293,8 +293,8 @@
                 });
 
                 $("body").on("click", ".edit", function() {
-                    var transaksi = $(this).data("id");
-                    $.get("{{ route(Auth::user()->type . '.transaksi.index') }}" + "/" + transaksi +
+                    var transaksi_id = $(this).data("id");
+                    $.get("{{ route(Auth::user()->type . '.transaksi.index') }}" + "/" + transaksi_id +
                         "/edit",
                         function(data) {
                             $("#ajaxModel").modal("show");
@@ -303,6 +303,7 @@
                             $("#sampah_id").val(data.sampah_id);
                             $("#berat").val(data.berat);
                             $("#nilai").val(data.nilai);
+                            $("#transaksi_id").val(data.id);
                         });
                 });
 
@@ -357,6 +358,7 @@
                                     $('#transaksiForm').trigger("reset");
                                     $("#saveBtn").html("Simpan");
                                     $('#ajaxModel').modal('hide');
+                                    alertSuccess(data.success);
                                 }
                             },
                         });
@@ -364,7 +366,7 @@
                         var transaksi_id = $("#transaksi_id").val();
                         $.ajax({
                             data: $("#transaksiForm").serialize(),
-                            url: "{{ route(Auth::user()->type . '.transaksi.store') }}" + "/" +
+                            url: "{{ route(Auth::user()->type . '.transaksi.index') }}" + "/" +
                                 transaksi_id + "/update",
                             type: "POST",
                             dataType: "json",
@@ -381,10 +383,10 @@
                                     });
                                 } else {
                                     table.draw();
-                                    alertSuccess(data.success);
                                     $('#transaksiForm').trigger("reset");
                                     $("#saveBtn").html("Simpan");
                                     $('#ajaxModel').modal('hide');
+                                    alertSuccess(data.success);
                                 }
                             },
                         });

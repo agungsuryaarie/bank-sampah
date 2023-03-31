@@ -69,8 +69,8 @@ Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(functio
     Route::get('transaksi', [TransaksiController::class, 'index'])->name('admin.transaksi.index');
     Route::get('transaksi/{id}/sampah', [TransaksiController::class, 'getSampah'])->name('admin.transaksi.getSampah');
     Route::post('transaksi/store', [TransaksiController::class, 'store'])->name('admin.transaksi.store');
-    Route::get('transaksi/{id}/edit', [TransaksiController::class, 'edit'])->name('admin.transaksi.edit');
-    Route::post('transaksi/update/{transaksi}', [TransaksiController::class, 'update'])->name('admin.transaksi.update');
+    Route::get('transaksi/{transaksi}/edit', [TransaksiController::class, 'edit'])->name('admin.transaksi.edit');
+    Route::post('transaksi/{transaksi}/update', [TransaksiController::class, 'update'])->name('admin.transaksi.update');
     Route::delete('transaksi/{transaksi}/destroy', [TransaksiController::class, 'destroy'])->name('admin.transaksi.destroy');
 });
 
@@ -94,8 +94,8 @@ Route::prefix('pengurus')->middleware(['auth', 'user-access:pengurus'])->group(f
     Route::get('transaksi', [TransaksiController::class, 'index'])->name('pengurus.transaksi.index');
     Route::get('transaksi/{id}/sampah', [TransaksiController::class, 'getSampah'])->name('pengurus.transaksi.getSampah');
     Route::post('transaksi/store', [TransaksiController::class, 'store'])->name('pengurus.transaksi.store');
-    Route::get('transaksi/{id}/edit', [TransaksiController::class, 'edit'])->name('pengurus.transaksi.edit');
-    Route::post('transaksi/update/{transaksi}', [TransaksiController::class, 'update'])->name('pengurus.transaksi.update');
+    Route::get('transaksi/{transaksi}/edit', [TransaksiController::class, 'edit'])->name('pengurus.transaksi.edit');
+    Route::post('transaksi/{transaksi}/update', [TransaksiController::class, 'update'])->name('pengurus.transaksi.update');
     Route::delete('transaksi/{transaksi}/destroy', [TransaksiController::class, 'destroy'])->name('pengurus.transaksi.destroy');
 });
 
