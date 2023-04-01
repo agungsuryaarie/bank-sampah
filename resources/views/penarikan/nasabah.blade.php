@@ -124,7 +124,7 @@
         </div>
     </section>
 
-    {{-- Modat Tambah saldo --}}
+    {{-- Modat Tarik saldo --}}
     <div class="modal fade" id="tambahsaldo">
         <div class="modal-dialog">
             <div class="modal-content">
