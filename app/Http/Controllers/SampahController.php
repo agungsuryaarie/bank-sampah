@@ -42,7 +42,7 @@ class SampahController extends Controller
             'gambar' => $gambar->hashName(),
         ]);
 
-        return redirect()->route(Auth::user()->type . '.sampah.index')->with(['success', 'Jenis Sampah Berhasil ditambah']);
+        return redirect()->route(Auth::user()->type . '.sampah.index')->with(['success' => 'Jenis Sampah Berhasil ditambah']);
     }
 
     public function update(Request $request, Sampah $sampah)
@@ -76,7 +76,7 @@ class SampahController extends Controller
             ]);
         }
 
-        return redirect()->route(Auth::user()->type . '.sampah.index')->with(['success', 'Jenis Sampah Berhasil diupdate']);
+        return redirect()->route(Auth::user()->type . '.sampah.index')->with(['success' => 'Jenis Sampah Berhasil diupdate']);
     }
 
     public function destroy(Sampah $sampah)

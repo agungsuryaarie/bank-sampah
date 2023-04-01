@@ -13,9 +13,12 @@ class PenarikanController extends Controller
     public function index()
     {
         $menu = 'Penarikan';
-        $penarikan = Penarikan::where('nasabah_id', Auth::user()->id)->get();
+        $penarikan = Penarikan::where('nasabah_id', Auth::user()->id)->latest()->get();
         $saldo = Transaksi::where('nasabah_id', Auth::user()->id)->where('status', 'debit')->sum('nilai');
-        return view('penarikan.nasabah', compact('menu', 'penarikan', 'saldo'));
+        $nilaipenarikan = $penarikan->sum('nilai');
+        // dd($penarikan->sum('nilai'));
+        $totalsaldo = $saldo - $nilaipenarikan;
+        return view('penarikan.nasabah', compact('menu', 'penarikan', 'saldo', 'totalsaldo'));
     }
 
     public function store(Request $request)
@@ -24,13 +27,22 @@ class PenarikanController extends Controller
             'nilai' => 'required',
         ]);
 
+        $penarikan = Penarikan::where('nasabah_id', Auth::user()->id)->get();
+        $saldo = Transaksi::where('nasabah_id', Auth::user()->id)->where('status', 'debit')->sum('nilai');
+        $nilaipenarikan = $penarikan->sum('nilai');
+        $totalsaldo = $saldo - $nilaipenarikan;
+
+        if ($request->nilai > $totalsaldo) {
+            // return back()->with(['success' => 'Jumlah penarikan melebihi nilai saldo']);
+            return redirect()->route(Auth::user()->type . '.penarikan')->with(['success' => 'Penarikan Berhasil Dihapus!']);
+        }
+
         Penarikan::create([
             'nasabah_id' => Auth::user()->id,
             'nilai' => $request->nilai,
             'status' => 1,
         ]);
-
-        return redirect()->route(Auth::user()->type . '.penarikan')->with(['success', 'Jumlah Penarikan Berhasil dikirim']);
+        return redirect()->route(Auth::user()->type . '.penarikan')->with(['success' => 'Jumlah Penarikan Berhasil dikirim']);
     }
 
     public function update(Request $request, Penarikan $penarikan)
@@ -45,7 +57,7 @@ class PenarikanController extends Controller
             'status' => 1,
         ]);
 
-        return redirect()->route(Auth::user()->type . '.penarikan')->with(['success', 'Jumlah Penarikan Berhasil Update']);
+        return redirect()->route(Auth::user()->type . '.penarikan')->with(['success' => 'Jumlah Penarikan Berhasil Update']);
     }
 
     public function destroy(Penarikan $penarikan)
@@ -81,6 +93,6 @@ class PenarikanController extends Controller
             'penarikan_id' => $penarikan->id,
         ]);
 
-        return redirect()->route(Auth::user()->type . '.penarikan')->with(['success', 'Status Penarikan Berhasil Update']);
+        return redirect()->route(Auth::user()->type . '.penarikan')->with(['success' => 'Status Penarikan Berhasil Update']);
     }
 }
