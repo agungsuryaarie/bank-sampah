@@ -131,11 +131,8 @@
         </div>
     </section>
 
-<<<<<<< HEAD
-    {{-- Modat Tarik saldo --}}
-=======
+
     {{-- Modal Tambah saldo --}}
->>>>>>> dad82124ff75bd32c73bc585939c4576938189b5
     <div class="modal fade" id="tambahsaldo">
         <div class="modal-dialog">
             <div class="modal-content">

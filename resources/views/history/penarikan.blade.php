@@ -34,7 +34,7 @@
                                         @endforeach
                                         <tr>
                                             <th colspan="2"></th>
-                                            <th class="text-primary">Saldo Akhir : Rp {{ $saldo }}</th>
+                                            <th class="text-primary">Saldo Akhir : Rp {{ $saldo->saldo }}</th>
                                         </tr>
                                     </tbody>
                                 </table>
