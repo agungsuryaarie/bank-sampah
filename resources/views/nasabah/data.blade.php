@@ -45,7 +45,7 @@
                                             <td>{{ $customer->name }}</td>
                                             <td>{{ $customer->alamat }}</td>
                                             <td>{{ $customer->nohp }}</td>
-                                            <td>{{ $customer->saldo->saldo }}</td>
+                                            <td>{{ $customer->saldo->saldo ?? '' }}</td>
                                             <td>
                                                 <div class="text-center">
                                                     @if (Auth::user()->type != 'admin')
