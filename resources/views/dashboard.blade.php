@@ -22,6 +22,55 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
+                    <div class="row">
+                        @if (Auth::user()->type == 'admin')
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header border-0">
+                                        <div class="d-flex justify-content-between">
+                                            <h3 class="card-title">Grafik Transaksi Pembelian</h3>
+                                            <a href="javascript:void(0);">View Report</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="position-relative mb-4">
+                                            <canvas id="myChartPembelian" height="200"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header border-0">
+                                        <div class="d-flex justify-content-between">
+                                            <h3 class="card-title">Grafik Transaksi Penarikan Saldo</h3>
+                                            <a href="javascript:void(0);">View Report</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="position-relative mb-4">
+                                            <canvas id="myChartPenarikan" height="200"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header border-0">
+                                        <div class="d-flex justify-content-between">
+                                            <h3 class="card-title">Grafik Persentase Sampah</h3>
+                                            <a href="javascript:void(0);">View Report</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="position-relative mb-4">
+                                            <canvas id="myChartSampah" height="200"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                     <div class="card">
                         @if (Auth::user()->type == 'nasabah')
                             <div class="card-body">
@@ -112,5 +161,177 @@
                 ]
             })
         })
+    </script>
+
+    <script>
+        // Line Chart Pembelian
+        // setup 
+        const dataPembelian = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agust', 'Sept', 'Okt', 'Nov', 'Des'],
+            datasets: [{
+                label: 'Weekly Sales',
+                data: [18, 12, 6, 9, 12, 3, 9, 31, 21, 51, 17, 11],
+                borderColor: [
+                    'rgb(75, 192, 192)',
+                ],
+                borderWidth: 2
+            }]
+        };
+
+        // config 
+        const configPembelian = {
+            type: 'line',
+            data: dataPembelian,
+            options: {
+                plugins: {
+                    legend: {
+                        display: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // render init block
+        const myChartPembelian = new Chart(
+            document.getElementById('myChartPembelian'),
+            configPembelian
+        );
+
+        // Line Chart Penarikan
+        // setup
+        const dataPenarikan = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agust', 'Sept', 'Okt', 'Nov', 'Des'],
+            datasets: [{
+                label: 'Weekly Sales',
+                data: [18, 12, 6, 9, 12, 3, 9, 31, 21, 51, 17, 11],
+                borderColor: [
+                    'rgba(255, 26, 104, 1)',
+                ],
+                borderWidth: 2
+            }]
+        };
+
+        // config 
+        const configPenarikan = {
+            type: 'line',
+            data: dataPenarikan,
+            options: {
+                plugins: {
+                    legend: {
+                        display: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // render init block
+        const myChartPenarikan = new Chart(
+            document.getElementById('myChartPenarikan'),
+            configPenarikan
+        );
+
+
+        // Pie chart Persentase Sampah
+        // setup 
+        const dataSampah = {
+            labels: ['Kertas', 'Duplex', 'Kardus', 'Gelas Plastik', 'Botol Plastik', 'Plastik Non Botol',
+                'Kaca', 'Kaleng/besi'
+            ],
+            datasets: [{
+                label: 'Weekly Sales',
+                data: [18, 12, 6, 9, 12, 3, 9],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)',
+                    'rgb(178, 164, 255)',
+                    'rgb(14, 162, 147)',
+                    'rgb(225, 18, 153)',
+                    'rgb(25, 167, 206)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        // config 
+        const configSampah = {
+            type: 'pie',
+            data: dataSampah,
+            options: {
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // render init block
+        const myChartSampah = new Chart(
+            document.getElementById('myChartSampah'),
+            configSampah
+        );
+
+
+        //  bar chart grafik sampah perbulan
+        // setup 
+        // const dataSampahPerbulan = {
+        //     labels: ['Kertas', ],
+        //     datasets: [{
+        //         label: 'Weekly Sales',
+        //         data: [18],
+        //         backgroundColor: [
+        //             'rgb(255, 99, 132)',
+        //             'rgb(54, 162, 235)',
+        //             'rgb(255, 205, 86)',
+        //             'rgb(178, 164, 255)',
+        //             'rgb(14, 162, 147)',
+        //             'rgb(225, 18, 153)',
+        //             'rgb(25, 167, 206)'
+        //         ],
+        //         borderWidth: 1
+        //     }]
+        // };
+
+        // // config 
+        // const configSampahPerbulan = {
+        //     type: 'bar',
+        //     data: dataSampahPerbulan,
+        //     options: {
+        //         plugins: {
+        //             legend: {
+        //                 display: true,
+        //                 position: 'bottom',
+        //                 scales: {
+        //                     y: {
+        //                         beginAtZero: true
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // };
+
+        // // render init block
+        // const myChartSampahPerbulan = new Chart(
+        //     document.getElementById('myChartSampahPerbulan'),
+        //     configSampahPerbulan
+        // );
     </script>
 @endsection
