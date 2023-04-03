@@ -43,15 +43,6 @@ class UserSeeder extends Seeder
                 'type' => 3,
                 'password' => bcrypt('123456'),
             ],
-            [
-                'name' => 'Zulfahmi',
-                'username' => 'nasabah',
-                'email' => 'nasabah@sampah.com',
-                'alamat' => 'Indrapura',
-                'nohp' => '08123456789',
-                'type' => 0,
-                'password' => bcrypt('123456'),
-            ],
         ];
 
         foreach ($users as $key => $user) {
