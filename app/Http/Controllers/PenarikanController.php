@@ -82,6 +82,7 @@ class PenarikanController extends Controller
 
         if ($request->status == 2) {
             $saldo = Saldo::where('nasabah_id', $penarikan->nasabah_id)->first();
+            // dd($penarikan->nilai);
             $saldo->saldo = $saldo->saldo - $penarikan->nilai;
             $saldo->save();
         }
