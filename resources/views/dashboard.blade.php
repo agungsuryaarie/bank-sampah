@@ -69,6 +69,33 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header border-0 mb-3">
+                                        <div class="d-flex justify-content-between">
+                                            <h3 class="card-title">Grafik Persentase Sampah Perbulan</h3>
+                                            <a href="javascript:void(0);">View Report</a>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-center">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <select class="form-control select2bs4" style="width: 100%;">
+                                                    <option selected="selected">Pilih Bulan</option>
+                                                    <option>Januari</option>
+                                                    <option>Februari</option>
+                                                    <option>Maret</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="position-relative mb-4">
+                                            <canvas id="myChartSampahPerbulan" height="200"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endif
                     </div>
                     <div class="card">
@@ -164,6 +191,11 @@
     </script>
 
     <script>
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+
         // Line Chart Pembelian
         // setup 
         const dataPembelian = {
@@ -289,49 +321,54 @@
         );
 
 
-        //  bar chart grafik sampah perbulan
-        // setup 
-        // const dataSampahPerbulan = {
-        //     labels: ['Kertas', ],
-        //     datasets: [{
-        //         label: 'Weekly Sales',
-        //         data: [18],
-        //         backgroundColor: [
-        //             'rgb(255, 99, 132)',
-        //             'rgb(54, 162, 235)',
-        //             'rgb(255, 205, 86)',
-        //             'rgb(178, 164, 255)',
-        //             'rgb(14, 162, 147)',
-        //             'rgb(225, 18, 153)',
-        //             'rgb(25, 167, 206)'
-        //         ],
-        //         borderWidth: 1
-        //     }]
-        // };
+        // bar chart grafik sampah perbulan
+        // setup
+        const dataSampahPerbulan = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agust', 'Sept', 'Okt', 'Nov', 'Des'],
+            datasets: [{
+                label: 'Weekly Sales',
+                data: [18, 23, 14, 61, 23, 42, 16, 19, 70, 91, 12, 89],
+                backgroundColor: [
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                ],
+                borderWidth: 1,
+            }]
+        };
 
-        // // config 
-        // const configSampahPerbulan = {
-        //     type: 'bar',
-        //     data: dataSampahPerbulan,
-        //     options: {
-        //         plugins: {
-        //             legend: {
-        //                 display: true,
-        //                 position: 'bottom',
-        //                 scales: {
-        //                     y: {
-        //                         beginAtZero: true
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        // };
+        // config 
+        const configSampahPerbulan = {
+            type: 'bar',
+            data: dataSampahPerbulan,
+            options: {
+                plugins: {
+                    legend: {
+                        display: false,
+                        position: 'bottom',
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                }
+            }
+        };
 
-        // // render init block
-        // const myChartSampahPerbulan = new Chart(
-        //     document.getElementById('myChartSampahPerbulan'),
-        //     configSampahPerbulan
-        // );
+        // render init block
+        const myChartSampahPerbulan = new Chart(
+            document.getElementById('myChartSampahPerbulan'),
+            configSampahPerbulan
+        );
     </script>
 @endsection

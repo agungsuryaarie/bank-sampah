@@ -53,6 +53,9 @@ hr{
 .justify-beetwen{
     justify-content: space-between;
 }
+.justify-center {
+    justify-content: center;
+}
 
 .card-box .icon {
     color: rgba(0,0,0,.15);
@@ -108,9 +111,9 @@ hr{
     padding: 7px;
 }
 
-span{
+/* span{
     text-align: center;
-}
+} */
 
 .menu-responsive i{
 font-size: 1.3rem;
@@ -123,4 +126,6 @@ font-size: 1.3rem;
         display: none;
       }
     }
+
+
     
