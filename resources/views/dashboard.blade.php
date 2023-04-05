@@ -198,11 +198,15 @@
 
         // Line Chart Pembelian
         // setup 
+
+        var labelPembelian = {{ Js::from($labelPembelian) }};
+        var pembelian = {{ Js::from($dataPembelian) }};
+
         const dataPembelian = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agust', 'Sept', 'Okt', 'Nov', 'Des'],
+            labels: labelPembelian,
             datasets: [{
-                label: 'Weekly Sales',
-                data: [18, 12, 6, 9, 12, 3, 9, 31, 21, 51, 17, 11],
+                label: 'Pembelian Perbulan',
+                data: pembelian,
                 borderColor: [
                     'rgb(75, 192, 192)',
                 ],
@@ -236,11 +240,15 @@
 
         // Line Chart Penarikan
         // setup
+
+        var labelPenarikan = {{ Js::from($labelPenarikan) }};
+        var penarikan = {{ Js::from($dataPenarikan) }};
+
         const dataPenarikan = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agust', 'Sept', 'Okt', 'Nov', 'Des'],
+            labels: labelPenarikan,
             datasets: [{
-                label: 'Weekly Sales',
-                data: [18, 12, 6, 9, 12, 3, 9, 31, 21, 51, 17, 11],
+                label: 'Penarikan Perbulan',
+                data: penarikan,
                 borderColor: [
                     'rgba(255, 26, 104, 1)',
                 ],
@@ -275,13 +283,15 @@
 
         // Pie chart Persentase Sampah
         // setup 
+
+        var labelpersenSampah = {{ Js::from($labelpersenSampah) }};
+        var persenSampah = {{ Js::from($datapersenSampah) }};
+
         const dataSampah = {
-            labels: ['Kertas', 'Duplex', 'Kardus', 'Gelas Plastik', 'Botol Plastik', 'Plastik Non Botol',
-                'Kaca', 'Kaleng/besi'
-            ],
+            labels: labelpersenSampah,
             datasets: [{
-                label: 'Weekly Sales',
-                data: [18, 12, 6, 9, 12, 3, 9],
+                label: 'Persentase Sampah',
+                data: persenSampah,
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',

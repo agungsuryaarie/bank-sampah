@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('petugas_id');
+            $table->foreignId('petugas_id')->nullable();
             $table->foreignId('sampah_id')->nullable();
             $table->string('nasabah_id')->constrained('users');
             $table->string('berat')->nullable();

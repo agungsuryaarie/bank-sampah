@@ -4,10 +4,10 @@
 </div>
 
 <script>
-    $(window).scrollTop(0);
-    setTimeout(function() {
-        $(".alert").alert("close");
-    }, 5000);
+    // $(window).scrollTop(0);
+    // setTimeout(function() {
+    //     $(".alert").alert("close");
+    // }, 5000);
 </script>
 <!-- jQuery -->
 <script src="{{ url('plugins/jquery/jquery.min.js') }}"></script>

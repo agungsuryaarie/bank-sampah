@@ -22,11 +22,6 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
-                            <a href="javascript:void(0)" id="" class="btn btn-info btn-xs float-right"
-                                data-toggle="modal" data-target="#tambahsaldo">
-                                <i class="fas fa-credit-card"></i> Tarik Saldo</a>
-                        </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">

@@ -7,6 +7,7 @@ use App\Models\Saldo;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class HomeController extends Controller
 {
@@ -59,6 +60,35 @@ class HomeController extends Controller
 
     public function admin()
     {
-        return view('dashboard');
+        $pembelian = Transaksi::select(DB::raw("sum(nilai) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+            ->where('status', 'debit')
+            ->whereYear('created_at', date('Y'))
+            ->groupBy(DB::raw("month_name"))
+            ->orderBy('month_name', 'DESC')
+            ->pluck('count', 'month_name');
+
+        $labelPembelian = $pembelian->keys();
+        $dataPembelian = $pembelian->values();
+
+        $penarikan = Transaksi::select(DB::raw("sum(nilai) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+            ->where('status', 'kredit')
+            ->whereYear('created_at', date('Y'))
+            ->groupBy(DB::raw("month_name"))
+            ->orderBy('month_name', 'DESC')
+            ->pluck('count', 'month_name');
+
+        $labelPenarikan = $penarikan->keys();
+        $dataPenarikan = $penarikan->values();
+
+        $persenSampah = Transaksi::select(DB::raw("sum(berat) as count"), DB::raw("sampah_id as sampah"))
+            ->where('status', 'debit')
+            ->groupBy(DB::raw("sampah"))
+            ->orderBy('sampah', 'DESC')
+            ->pluck('count', 'sampah');
+
+        $labelpersenSampah = $persenSampah->keys();
+        $datapersenSampah = $persenSampah->values();
+
+        return view('dashboard', compact('labelPembelian', 'dataPembelian', 'labelPenarikan', 'dataPenarikan', 'labelpersenSampah', 'datapersenSampah'));
     }
 }
