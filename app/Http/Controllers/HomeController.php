@@ -86,7 +86,6 @@ class HomeController extends Controller
             ->orderBy('sampah', 'DESC')
             ->pluck('count', 'sampah');
 
-        dd($totalSampah);
         $labelpersenSampah = $persenSampah->keys();
         $datapersenSampah = $persenSampah->values();
 
