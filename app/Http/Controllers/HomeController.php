@@ -86,9 +86,10 @@ class HomeController extends Controller
             ->orderBy('sampah', 'DESC')
             ->pluck('count', 'sampah');
 
+        dd($totalSampah);
         $labelpersenSampah = $persenSampah->keys();
         $datapersenSampah = $persenSampah->values();
 
-        return view('dashboard', compact('labelPembelian', 'dataPembelian', 'labelPenarikan', 'dataPenarikan', 'labelpersenSampah', 'datapersenSampah'));
+        return view('dashboard', compact('labelPembelian', 'dataPembelian', 'labelPenarikan', 'dataPenarikan', 'labelpersenSampah', 'datapersenSampah', 'totalSampah'));
     }
 }

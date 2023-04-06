@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-    @vite('resources/js/app.js')
+    {{-- @vite('resources/js/app.js') --}}
 </head>
 
 <body class="hold-transition login-page">

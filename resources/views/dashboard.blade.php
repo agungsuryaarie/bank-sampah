@@ -286,11 +286,11 @@
 
         var labelpersenSampah = {{ Js::from($labelpersenSampah) }};
         var persenSampah = {{ Js::from($datapersenSampah) }};
-
+        
         const dataSampah = {
             labels: labelpersenSampah,
             datasets: [{
-                label: 'Persentase Sampah',
+                label: 'Persentase',
                 data: persenSampah,
                 backgroundColor: [
                     'rgb(255, 99, 132)',
