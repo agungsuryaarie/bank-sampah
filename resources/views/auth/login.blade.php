@@ -79,10 +79,9 @@
             </div>
         </div>
     </div>
-
-    <script src="{{ url('public/plugins/jquery/jquery.min.js') }}"></script>
-    <script src="{{ url('public/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ url('public/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ url('plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url('dist/js/adminlte.min.js') }}"></script>
 </body>
 
 </html>
