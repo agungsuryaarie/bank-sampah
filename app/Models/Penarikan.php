@@ -9,7 +9,7 @@ class Penarikan extends Model
 {
     use HasFactory;
 
-    protected $table = 'Penarikan';
+    protected $table = 'penarikan';
 
     protected $fillable = ['nasabah_id', 'nilai', 'status', 'keterangan'];
 
