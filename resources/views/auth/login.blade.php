@@ -7,9 +7,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link href="{{ url('public/plugins/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-    <link href="{{ url('public/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ url('public/dist/css/adminlte.min.css') }}" rel="stylesheet">
+    <link href="{{ url('plugins/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url('dist/css/adminlte.min.css') }}" rel="stylesheet">
     {{-- @vite('resources/js/app.js') --}}
 </head>
 

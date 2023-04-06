@@ -196,189 +196,190 @@
             theme: 'bootstrap4'
         })
 
-        // Line Chart Pembelian
-        // setup 
+        @if (Auth::user()->type == 'admin')
+            // Line Chart Pembelian
+            // setup 
+            var labelPembelian = {{ Js::from($labelPembelian) }};
+            var pembelian = {{ Js::from($dataPembelian) }};
 
-        var labelPembelian = {{ Js::from($labelPembelian) }};
-        var pembelian = {{ Js::from($dataPembelian) }};
+            const dataPembelian = {
+                labels: labelPembelian,
+                datasets: [{
+                    label: 'Pembelian Perbulan',
+                    data: pembelian,
+                    borderColor: [
+                        'rgb(75, 192, 192)',
+                    ],
+                    borderWidth: 2
+                }]
+            };
 
-        const dataPembelian = {
-            labels: labelPembelian,
-            datasets: [{
-                label: 'Pembelian Perbulan',
-                data: pembelian,
-                borderColor: [
-                    'rgb(75, 192, 192)',
-                ],
-                borderWidth: 2
-            }]
-        };
-
-        // config 
-        const configPembelian = {
-            type: 'line',
-            data: dataPembelian,
-            options: {
-                plugins: {
-                    legend: {
-                        display: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true
+            // config 
+            const configPembelian = {
+                type: 'line',
+                data: dataPembelian,
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
                             }
                         }
                     }
                 }
-            }
-        };
+            };
 
-        // render init block
-        const myChartPembelian = new Chart(
-            document.getElementById('myChartPembelian'),
-            configPembelian
-        );
+            // render init block
+            const myChartPembelian = new Chart(
+                document.getElementById('myChartPembelian'),
+                configPembelian
+            );
 
-        // Line Chart Penarikan
-        // setup
+            // Line Chart Penarikan
+            // setup
 
-        var labelPenarikan = {{ Js::from($labelPenarikan) }};
-        var penarikan = {{ Js::from($dataPenarikan) }};
+            var labelPenarikan = {{ Js::from($labelPenarikan) }};
+            var penarikan = {{ Js::from($dataPenarikan) }};
 
-        const dataPenarikan = {
-            labels: labelPenarikan,
-            datasets: [{
-                label: 'Penarikan Perbulan',
-                data: penarikan,
-                borderColor: [
-                    'rgba(255, 26, 104, 1)',
-                ],
-                borderWidth: 2
-            }]
-        };
+            const dataPenarikan = {
+                labels: labelPenarikan,
+                datasets: [{
+                    label: 'Penarikan Perbulan',
+                    data: penarikan,
+                    borderColor: [
+                        'rgba(255, 26, 104, 1)',
+                    ],
+                    borderWidth: 2
+                }]
+            };
 
-        // config 
-        const configPenarikan = {
-            type: 'line',
-            data: dataPenarikan,
-            options: {
-                plugins: {
-                    legend: {
-                        display: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true
+            // config 
+            const configPenarikan = {
+                type: 'line',
+                data: dataPenarikan,
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
                             }
                         }
                     }
                 }
-            }
-        };
+            };
 
-        // render init block
-        const myChartPenarikan = new Chart(
-            document.getElementById('myChartPenarikan'),
-            configPenarikan
-        );
+            // render init block
+            const myChartPenarikan = new Chart(
+                document.getElementById('myChartPenarikan'),
+                configPenarikan
+            );
 
 
-        // Pie chart Persentase Sampah
-        // setup 
+            // Pie chart Persentase Sampah
+            // setup 
 
-        var labelpersenSampah = {{ Js::from($labelpersenSampah) }};
-        var persenSampah = {{ Js::from($datapersenSampah) }};
-        
-        const dataSampah = {
-            labels: labelpersenSampah,
-            datasets: [{
-                label: 'Persentase',
-                data: persenSampah,
-                backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)',
-                    'rgb(178, 164, 255)',
-                    'rgb(14, 162, 147)',
-                    'rgb(225, 18, 153)',
-                    'rgb(25, 167, 206)'
-                ],
-                borderWidth: 1
-            }]
-        };
+            var labelpersenSampah = {{ Js::from($labelpersenSampah) }};
+            var persenSampah = {{ Js::from($datapersenSampah) }};
 
-        // config 
-        const configSampah = {
-            type: 'pie',
-            data: dataSampah,
-            options: {
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'bottom',
-                        scales: {
-                            y: {
-                                beginAtZero: true
+            const dataSampah = {
+                labels: labelpersenSampah,
+                datasets: [{
+                    label: 'Persentase',
+                    data: persenSampah,
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)',
+                        'rgb(178, 164, 255)',
+                        'rgb(14, 162, 147)',
+                        'rgb(225, 18, 153)',
+                        'rgb(25, 167, 206)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            // config 
+            const configSampah = {
+                type: 'pie',
+                data: dataSampah,
+                options: {
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
                             }
                         }
                     }
                 }
-            }
-        };
+            };
 
-        // render init block
-        const myChartSampah = new Chart(
-            document.getElementById('myChartSampah'),
-            configSampah
-        );
+            // render init block
+            const myChartSampah = new Chart(
+                document.getElementById('myChartSampah'),
+                configSampah
+            );
 
 
-        // bar chart grafik sampah perbulan
-        // setup
-        const dataSampahPerbulan = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agust', 'Sept', 'Okt', 'Nov', 'Des'],
-            datasets: [{
-                label: 'Weekly Sales',
-                data: [18, 23, 14, 61, 23, 42, 16, 19, 70, 91, 12, 89],
-                backgroundColor: [
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                ],
-                borderWidth: 1,
-            }]
-        };
+            // bar chart grafik sampah perbulan
+            // setup
+            const dataSampahPerbulan = {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agust', 'Sept', 'Okt', 'Nov', 'Des'],
+                datasets: [{
+                    label: 'Weekly Sales',
+                    data: [18, 23, 14, 61, 23, 42, 16, 19, 70, 91, 12, 89],
+                    backgroundColor: [
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                    ],
+                    borderWidth: 1,
+                }]
+            };
 
-        // config 
-        const configSampahPerbulan = {
-            type: 'bar',
-            data: dataSampahPerbulan,
-            options: {
-                plugins: {
-                    legend: {
-                        display: false,
-                        position: 'bottom',
-                        scales: {
-                            y: {
-                                beginAtZero: true
+            // config 
+            const configSampahPerbulan = {
+                type: 'bar',
+                data: dataSampahPerbulan,
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false,
+                            position: 'bottom',
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
                             }
                         }
                     }
                 }
-            }
-        };
+            };
 
-        // render init block
-        const myChartSampahPerbulan = new Chart(
-            document.getElementById('myChartSampahPerbulan'),
-            configSampahPerbulan
-        );
+            // render init block
+            const myChartSampahPerbulan = new Chart(
+                document.getElementById('myChartSampahPerbulan'),
+                configSampahPerbulan
+            );
+        @endif
     </script>
 @endsection
