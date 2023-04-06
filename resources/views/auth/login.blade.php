@@ -7,9 +7,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="public/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="public/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <link rel="stylesheet" href="public/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="{{ url('public/plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url('public/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url('public/dist/css/adminlte.min.css') }}">
     {{-- @vite('resources/js/app.js') --}}
 </head>
 
@@ -80,9 +80,9 @@
         </div>
     </div>
 
-    <script src="../../plugins/jquery/jquery.min.js"></script>
-    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../../dist/js/adminlte.min.js"></script>
+    <script src="{{ url('public/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url('public/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url('public/dist/js/adminlte.min.js') }}"></script>
 </body>
 
 </html>
