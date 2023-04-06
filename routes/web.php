@@ -10,6 +10,7 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\PenarikanController;
 use App\Http\Controllers\SampahController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +28,9 @@ use App\Http\Controllers\TransaksiController;
 // Login
 Route::get('/', [DashboardController::class, 'login']);
 
-
-
 Auth::routes();
 
+Route::post('customer/create', [RegisterController::class, 'create'])->name('customer.create');
 
 /*------------------------------------------
 --------------------------------------------
