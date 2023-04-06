@@ -89,6 +89,6 @@ class HomeController extends Controller
         $labelpersenSampah = $persenSampah->keys();
         $datapersenSampah = $persenSampah->values();
 
-        return view('dashboard', compact('labelPembelian', 'dataPembelian', 'labelPenarikan', 'dataPenarikan', 'labelpersenSampah', 'datapersenSampah', 'totalSampah'));
+        return view('dashboard', compact('labelPembelian', 'dataPembelian', 'labelPenarikan', 'dataPenarikan', 'labelpersenSampah', 'datapersenSampah'));
     }
 }
