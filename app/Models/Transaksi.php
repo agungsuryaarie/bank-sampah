@@ -12,7 +12,7 @@ class Transaksi extends Model
 
     protected $table = 'transaksi';
 
-    protected $fillable = ['petugas_id', 'sampah_id', 'nasabah_id', 'berat', 'nilai', 'status', 'penarikan_id'];
+    protected $fillable = ['petugas_id', 'sampah_id', 'nasabah_id', 'berat', 'nilai', 'status', 'penarikan_id', 'created_at'];
 
     protected function stauts(): Attribute
     {

@@ -112,6 +112,19 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
+                                                <label>Tanggal<span class="text-danger"></label>
+                                                <input type="date" name="created_at" id="created_at"
+                                                    class="form-control @error('created_at') is-invalid @enderror"
+                                                    placeholder="Pilih Tanggal">
+                                                @error('created_at')
+                                                    <span class="invalid-feedback">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
                                                 <label>Berat<span class="text-danger"> * </span> <small>Silahkan pilih jenis
                                                         sampah</small></label>
                                                 <input type="text" name="berat" id="berat"
@@ -304,6 +317,7 @@
                             $("#berat").val(data.berat);
                             $("#nilai").val(data.nilai);
                             $("#transaksi_id").val(data.id);
+                            $("#transaksi_id").val(data.created_at);
                         });
                 });
 

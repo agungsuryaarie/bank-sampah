@@ -72,7 +72,9 @@ class TransaksiController extends Controller
             'berat' => $request->berat,
             'status' => 'debit',
             'nilai' => $request->nilai,
+            'created_at' => $request->created_at,
         ]);
+
 
         $saldo = Saldo::where('nasabah_id', $request->nasabah_id)->first();
         $saldo->saldo = $saldo->saldo + $request->nilai;
@@ -110,6 +112,7 @@ class TransaksiController extends Controller
             'berat' => $request->berat,
             'status' => 'debit',
             'nilai' => $request->nilai,
+            'created_at' => $request->created_at,
         ]);
         return response()->json(['success' => 'Transaksi Berhasil diubah.']);
     }
