@@ -65,7 +65,7 @@ class HomeController extends Controller
             ->where('status', 'debit')
             ->whereYear('created_at', date('Y'))
             ->groupBy(DB::raw("month_name"))
-            ->orderBy('month_name', 'DESC')
+            ->orderBy('month_name', 'ASC')
             ->pluck('count', 'month_name');
 
         $labelPembelian = $pembelian->keys();
@@ -75,7 +75,7 @@ class HomeController extends Controller
             ->where('status', 'kredit')
             ->whereYear('created_at', date('Y'))
             ->groupBy(DB::raw("month_name"))
-            ->orderBy('month_name', 'DESC')
+            ->orderBy('month_name', 'ASC')
             ->pluck('count', 'month_name');
 
         $labelPenarikan = $penarikan->keys();
