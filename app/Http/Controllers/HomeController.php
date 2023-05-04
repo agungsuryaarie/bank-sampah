@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Penarikan;
 use App\Models\Saldo;
+use App\Models\Sampah;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -64,7 +65,7 @@ class HomeController extends Controller
             ->where('status', 'debit')
             ->whereYear('created_at', date('Y'))
             ->groupBy(DB::raw("month_name"))
-            ->orderBy('month_name', 'DESC')
+            ->orderBy('month_name', 'ASC')
             ->pluck('count', 'month_name');
 
         $labelPembelian = $pembelian->keys();
@@ -74,17 +75,18 @@ class HomeController extends Controller
             ->where('status', 'kredit')
             ->whereYear('created_at', date('Y'))
             ->groupBy(DB::raw("month_name"))
-            ->orderBy('month_name', 'DESC')
+            ->orderBy('month_name', 'ASC')
             ->pluck('count', 'month_name');
 
         $labelPenarikan = $penarikan->keys();
         $dataPenarikan = $penarikan->values();
 
-        $persenSampah = Transaksi::select(DB::raw("sum(berat) as count"), DB::raw("sampah_id as sampah"))
+        $persenSampah = Sampah::join('transaksi', 'sampah.id', '=', 'transaksi.sampah_id')
+            ->select(DB::raw("sum(transaksi.berat) as count"), DB::raw("jenis"))
             ->where('status', 'debit')
-            ->groupBy(DB::raw("sampah"))
-            ->orderBy('sampah', 'DESC')
-            ->pluck('count', 'sampah');
+            ->groupBy(DB::raw("sampah_id"))
+            ->orderBy('sampah_id', 'DESC')
+            ->pluck('count', 'jenis');
 
         $labelpersenSampah = $persenSampah->keys();
         $datapersenSampah = $persenSampah->values();
