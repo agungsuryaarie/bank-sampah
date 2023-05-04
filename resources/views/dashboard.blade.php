@@ -286,7 +286,7 @@
 
             var labelpersenSampah = {{ Js::from($labelpersenSampah) }};
             var persenSampah = {{ Js::from($datapersenSampah) }};
-
+            console.log(persenSampah);
             const dataSampah = {
                 labels: labelpersenSampah,
                 datasets: [{

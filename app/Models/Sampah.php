@@ -12,4 +12,9 @@ class Sampah extends Model
     protected $table = 'sampah';
 
     protected $fillable = ['jenis', 'harga_nasabah', 'harga_pengepul', 'berat', 'gambar'];
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
 }

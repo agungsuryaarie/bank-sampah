@@ -14,7 +14,7 @@ class Transaksi extends Model
 
     protected $fillable = ['petugas_id', 'sampah_id', 'nasabah_id', 'berat', 'nilai', 'status', 'penarikan_id', 'created_at'];
 
-    protected function stauts(): Attribute
+    protected function status(): Attribute
     {
         return new Attribute(
             get: fn ($value) =>  ['debit', 'kredit'][$value],
