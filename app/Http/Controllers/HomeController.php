@@ -91,6 +91,9 @@ class HomeController extends Controller
         $labelpersenSampah = $persenSampah->keys();
         $datapersenSampah = $persenSampah->values();
 
+        // $sampahBulan = Transaksi::select(DB::raw("sampah_id"), DB::raw("MONTHNAME(created_at) as month_name"))->where('status', 'debit')->groupBy('month_name')->pluck('sampah');
+        // dd($sampahBulan);
+
         return view('dashboard', compact('labelPembelian', 'dataPembelian', 'labelPenarikan', 'dataPenarikan', 'labelpersenSampah', 'datapersenSampah'));
     }
 }

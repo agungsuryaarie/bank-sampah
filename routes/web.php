@@ -121,6 +121,7 @@ Route::prefix('bendahara')->middleware(['auth', 'user-access:bendahara'])->group
     // penarikan
     Route::get('penarikan', [PenarikanController::class, 'bendahara'])->name('bendahara.penarikan');
     Route::post('penarikan/update/{penarikan}', [PenarikanController::class, 'aksi'])->name('bendahara.penarikan.update');
+    Route::post('penarikan/update/tanggal/{penarikan}', [PenarikanController::class, 'updateTanggal'])->name('bendahara.penarikan.tanggal');
 });
 
 /*------------------------------------------

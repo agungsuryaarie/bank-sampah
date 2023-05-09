@@ -7,6 +7,7 @@ use App\Models\Saldo;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class PenarikanController extends Controller
 {
@@ -76,22 +77,60 @@ class PenarikanController extends Controller
 
     public function aksi(Request $request, Penarikan $penarikan)
     {
-        $penarikan->update([
-            'status' => $request->status,
-        ]);
 
-        if ($request->status == 2) {
-            $saldo = Saldo::where('nasabah_id', $penarikan->nasabah_id)->first();
-            // dd($penarikan->nilai);
-            $saldo->saldo = $saldo->saldo - $penarikan->nilai;
-            $saldo->save();
+        if ($request->tanggal == null) {
+            $penarikan->update([
+                'status' => $request->status,
+                'created_at' => Carbon::now(),
+            ]);
+
+            if ($request->status == 2) {
+                $saldo = Saldo::where('nasabah_id', $penarikan->nasabah_id)->first();
+                $saldo->saldo = $saldo->saldo - $penarikan->nilai;
+                $saldo->save();
+            }
+
+            Transaksi::create([
+                'nasabah_id' => $penarikan->nasabah_id,
+                'status' => 'kredit',
+                'nilai' => $penarikan->nilai,
+                'penarikan_id' => $penarikan->id,
+                'created_at' => Carbon::now(),
+            ]);
+        } else {
+            $penarikan->update([
+                'created_at' => $request->tanggal,
+                'status' => $request->status,
+            ]);
+
+            if ($request->status == 2) {
+                $saldo = Saldo::where('nasabah_id', $penarikan->nasabah_id)->first();
+                $saldo->saldo = $saldo->saldo - $penarikan->nilai;
+                $saldo->save();
+            }
+
+            Transaksi::create([
+                'nasabah_id' => $penarikan->nasabah_id,
+                'status' => 'kredit',
+                'nilai' => $penarikan->nilai,
+                'penarikan_id' => $penarikan->id,
+                'created_at' => $request->tanggal,
+            ]);
         }
 
-        Transaksi::create([
-            'nasabah_id' => $penarikan->nasabah_id,
-            'status' => 'kredit',
-            'nilai' => $penarikan->nilai,
-            'penarikan_id' => $penarikan->id,
+        return redirect()->route(Auth::user()->type . '.penarikan')->with(['success' => 'Status Penarikan Berhasil Update']);
+    }
+
+    public function updateTanggal(Request $request, Penarikan $penarikan)
+    {
+        $penarikan->update([
+            'created_at' => $request->tanggal,
+        ]);
+
+        $transaksi = Transaksi::where('penarikan_id', $penarikan->id);
+
+        $transaksi->update([
+            'created_at' => $request->tanggal,
         ]);
 
         return redirect()->route(Auth::user()->type . '.penarikan')->with(['success' => 'Status Penarikan Berhasil Update']);

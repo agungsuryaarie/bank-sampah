@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="row">
-                        @if (Auth::user()->type == 'admin')
+                        @if (Auth::user()->type == 'admin' || Auth::user()->type == 'pengurus' || Auth::user()->type == 'bendahara')
                             <div class="col-lg-6">
                                 <div class="card">
                                     <div class="card-header border-0">
@@ -81,10 +81,18 @@
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <select class="form-control select2bs4" style="width: 100%;">
-                                                    <option selected="selected">Pilih Bulan</option>
-                                                    <option>Januari</option>
-                                                    <option>Februari</option>
-                                                    <option>Maret</option>
+                                                    <option value="1" selected="selected">Januari</option>
+                                                    <option value="2">Februari</option>
+                                                    <option value="3">Maret</option>
+                                                    <option value="4">April</option>
+                                                    <option value="5">Mai</option>
+                                                    <option value="6">Juni</option>
+                                                    <option value="7">Juli</option>
+                                                    <option value="8">Agustus</option>
+                                                    <option value="9">September</option>
+                                                    <option value="10">Oktober</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">Desember</option>
                                                 </select>
                                             </div>
                                         </div>
