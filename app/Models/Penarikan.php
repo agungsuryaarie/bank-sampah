@@ -11,7 +11,7 @@ class Penarikan extends Model
 
     protected $table = 'penarikan';
 
-    protected $fillable = ['nasabah_id', 'nilai', 'status', 'keterangan'];
+    protected $fillable = ['nasabah_id', 'nilai', 'status', 'keterangan', 'created_at'];
 
     public function nasabah()
     {
