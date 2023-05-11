@@ -126,9 +126,7 @@ class PenarikanController extends Controller
         $penarikan->update([
             'created_at' => $request->tanggal,
         ]);
-
         $transaksi = Transaksi::where('penarikan_id', $penarikan->id);
-
         $transaksi->update([
             'created_at' => $request->tanggal,
         ]);
