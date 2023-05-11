@@ -21,7 +21,6 @@ class TransaksiController extends Controller
     {
         $menu = 'Transaksi';
         $user = User::where('type', 0)->get();
-        $sampah = Sampah::get();
         if ($request->ajax()) {
             $data = Transaksi::where('status', 'debit')->latest()->get();
             return Datatables::of($data)
@@ -46,7 +45,7 @@ class TransaksiController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('transaksi.data', compact('menu', 'user', 'sampah'));
+        return view('transaksi.data', compact('menu', 'user'));
     }
 
     public function getSampah($id)

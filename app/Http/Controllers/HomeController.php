@@ -51,12 +51,72 @@ class HomeController extends Controller
 
     public function pengurus()
     {
-        return view('dashboard');
+        $pembelian = Transaksi::select(DB::raw("sum(nilai) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+            ->where('status', 'debit')
+            ->whereYear('created_at', date('Y'))
+            ->groupBy(DB::raw("month_name"))
+            ->orderBy('month_name', 'ASC')
+            ->pluck('count', 'month_name');
+
+        $labelPembelian = $pembelian->keys();
+        $dataPembelian = $pembelian->values();
+
+        $penarikan = Transaksi::select(DB::raw("sum(nilai) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+            ->where('status', 'kredit')
+            ->whereYear('created_at', date('Y'))
+            ->groupBy(DB::raw("month_name"))
+            ->orderBy('month_name', 'ASC')
+            ->pluck('count', 'month_name');
+
+        $labelPenarikan = $penarikan->keys();
+        $dataPenarikan = $penarikan->values();
+
+        $persenSampah = Sampah::join('transaksi', 'sampah.id', '=', 'transaksi.sampah_id')
+            ->select(DB::raw("sum(transaksi.berat) as count"), DB::raw("jenis"))
+            ->where('status', 'debit')
+            ->groupBy(DB::raw("sampah_id"))
+            ->orderBy('sampah_id', 'DESC')
+            ->pluck('count', 'jenis');
+
+        $labelpersenSampah = $persenSampah->keys();
+        $datapersenSampah = $persenSampah->values();
+
+        return view('dashboard', compact('labelPembelian', 'dataPembelian', 'labelPenarikan', 'dataPenarikan', 'labelpersenSampah', 'datapersenSampah'));
     }
 
     public function bendahara()
     {
-        return view('dashboard');
+        $pembelian = Transaksi::select(DB::raw("sum(nilai) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+            ->where('status', 'debit')
+            ->whereYear('created_at', date('Y'))
+            ->groupBy(DB::raw("month_name"))
+            ->orderBy('month_name', 'ASC')
+            ->pluck('count', 'month_name');
+
+        $labelPembelian = $pembelian->keys();
+        $dataPembelian = $pembelian->values();
+
+        $penarikan = Transaksi::select(DB::raw("sum(nilai) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+            ->where('status', 'kredit')
+            ->whereYear('created_at', date('Y'))
+            ->groupBy(DB::raw("month_name"))
+            ->orderBy('month_name', 'ASC')
+            ->pluck('count', 'month_name');
+
+        $labelPenarikan = $penarikan->keys();
+        $dataPenarikan = $penarikan->values();
+
+        $persenSampah = Sampah::join('transaksi', 'sampah.id', '=', 'transaksi.sampah_id')
+            ->select(DB::raw("sum(transaksi.berat) as count"), DB::raw("jenis"))
+            ->where('status', 'debit')
+            ->groupBy(DB::raw("sampah_id"))
+            ->orderBy('sampah_id', 'DESC')
+            ->pluck('count', 'jenis');
+
+        $labelpersenSampah = $persenSampah->keys();
+        $datapersenSampah = $persenSampah->values();
+
+        return view('dashboard', compact('labelPembelian', 'dataPembelian', 'labelPenarikan', 'dataPenarikan', 'labelpersenSampah', 'datapersenSampah'));
     }
 
     public function admin()
@@ -90,9 +150,6 @@ class HomeController extends Controller
 
         $labelpersenSampah = $persenSampah->keys();
         $datapersenSampah = $persenSampah->values();
-
-        // $sampahBulan = Transaksi::select(DB::raw("sampah_id"), DB::raw("MONTHNAME(created_at) as month_name"))->where('status', 'debit')->groupBy('month_name')->pluck('sampah');
-        // dd($sampahBulan);
 
         return view('dashboard', compact('labelPembelian', 'dataPembelian', 'labelPenarikan', 'dataPenarikan', 'labelpersenSampah', 'datapersenSampah'));
     }
