@@ -21,6 +21,7 @@ class TransaksiController extends Controller
     {
         $menu = 'Transaksi';
         $user = User::where('type', 0)->get();
+        $sampah = Sampah::get();
         if ($request->ajax()) {
             $data = Transaksi::where('status', 'debit')->latest()->get();
             return Datatables::of($data)
@@ -37,15 +38,15 @@ class TransaksiController extends Controller
                 ->addColumn('sampah', function ($data) {
                     return $data->sampah->jenis;
                 })
-                ->addColumn('action', function ($data) {
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-primary btn-xs edit"><i class="fas fa-edit"></i></a>';
-                    $btn = '<center>' . $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Delete" class="btn btn-danger btn-xs delete"><i class="fas fa-trash"></i></a><center>';
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-xs edit"><i class="fas fa-edit"></i></a>';
+                    $btn = '<center>' . $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-xs delete"><i class="fas fa-trash"></i></a><center>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('transaksi.data', compact('menu', 'user'));
+        return view('transaksi.data', compact('menu', 'user', 'sampah'));
     }
 
     public function getSampah($id)
