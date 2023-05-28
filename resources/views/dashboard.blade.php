@@ -58,7 +58,7 @@
                                 <div class="card">
                                     <div class="card-header border-0">
                                         <div class="d-flex justify-content-between">
-                                            <h3 class="card-title">Grafik Persentase Sampah</h3>
+                                            <h3 class="card-title">Grafik Persentase Eco Enzyme</h3>
                                             <a href="javascript:void(0);">View Report</a>
                                         </div>
                                     </div>
@@ -73,28 +73,8 @@
                                 <div class="card">
                                     <div class="card-header border-0 mb-3">
                                         <div class="d-flex justify-content-between">
-                                            <h3 class="card-title">Grafik Persentase Sampah Perbulan</h3>
+                                            <h3 class="card-title">Grafik Eco Enzyme Perbulan</h3>
                                             <a href="javascript:void(0);">View Report</a>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-center">
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <select class="form-control select2bs4" style="width: 100%;">
-                                                    <option value="1" selected="selected">Januari</option>
-                                                    <option value="2">Februari</option>
-                                                    <option value="3">Maret</option>
-                                                    <option value="4">April</option>
-                                                    <option value="5">Mai</option>
-                                                    <option value="6">Juni</option>
-                                                    <option value="7">Juli</option>
-                                                    <option value="8">Agustus</option>
-                                                    <option value="9">September</option>
-                                                    <option value="10">Oktober</option>
-                                                    <option value="11">November</option>
-                                                    <option value="12">Desember</option>
-                                                </select>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -205,189 +185,81 @@
         })
 
         @if (Auth::user()->type == 'admin')
-            // Line Chart Pembelian
-            // setup 
-            var labelPembelian = {{ Js::from($labelPembelian) }};
-            var pembelian = {{ Js::from($dataPembelian) }};
 
-            const dataPembelian = {
-                labels: labelPembelian,
-                datasets: [{
-                    label: 'Pembelian Perbulan',
-                    data: pembelian,
-                    borderColor: [
-                        'rgb(75, 192, 192)',
-                    ],
-                    borderWidth: 2
-                }]
-            };
-
-            // config 
-            const configPembelian = {
-                type: 'line',
-                data: dataPembelian,
-                options: {
-                    plugins: {
-                        legend: {
-                            display: false,
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
+            $(document).ready(function() {
+                $.ajax({
+                    url: 'dashboard/data',
+                    method: 'GET',
+                    success: function(data) {
+                        var ctxPembelian = document.getElementById('myChartPembelian').getContext('2d');
+                        var myChartPembelian = new Chart(ctxPembelian, {
+                            type: 'line',
+                            data: {
+                                labels: data.labelPembelian,
+                                datasets: [{
+                                    label: 'Pembelian Perbulan',
+                                    data: data.dataPembelian,
+                                    fill: false,
+                                    borderColor: 'rgba(255, 99, 132, 0.8)',
+                                    borderWidth: 2
+                                }]
                             }
-                        }
-                    }
-                }
-            };
+                        });
 
-            // render init block
-            const myChartPembelian = new Chart(
-                document.getElementById('myChartPembelian'),
-                configPembelian
-            );
-
-            // Line Chart Penarikan
-            // setup
-
-            var labelPenarikan = {{ Js::from($labelPenarikan) }};
-            var penarikan = {{ Js::from($dataPenarikan) }};
-
-            const dataPenarikan = {
-                labels: labelPenarikan,
-                datasets: [{
-                    label: 'Penarikan Perbulan',
-                    data: penarikan,
-                    borderColor: [
-                        'rgba(255, 26, 104, 1)',
-                    ],
-                    borderWidth: 2
-                }]
-            };
-
-            // config 
-            const configPenarikan = {
-                type: 'line',
-                data: dataPenarikan,
-                options: {
-                    plugins: {
-                        legend: {
-                            display: false,
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
+                        var ctxPenarikan = document.getElementById('myChartPenarikan').getContext('2d');
+                        var myChartPenarikan = new Chart(ctxPenarikan, {
+                            type: 'line',
+                            data: {
+                                labels: data.labelPenarikan,
+                                datasets: [{
+                                    label: 'Penarikan Perbulan',
+                                    data: data.dataPenarikan,
+                                    fill: false,
+                                    borderColor: 'rgba(255, 99, 132, 0.8)',
+                                    borderWidth: 2
+                                }]
                             }
-                        }
-                    }
-                }
-            };
+                        });
 
-            // render init block
-            const myChartPenarikan = new Chart(
-                document.getElementById('myChartPenarikan'),
-                configPenarikan
-            );
-
-
-            // Pie chart Persentase Sampah
-            // setup 
-
-            var labelpersenSampah = {{ Js::from($labelpersenSampah) }};
-            var persenSampah = {{ Js::from($datapersenSampah) }};
-            console.log(persenSampah);
-            const dataSampah = {
-                labels: labelpersenSampah,
-                datasets: [{
-                    label: 'Persentase',
-                    data: persenSampah,
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)',
-                        'rgb(178, 164, 255)',
-                        'rgb(14, 162, 147)',
-                        'rgb(225, 18, 153)',
-                        'rgb(25, 167, 206)'
-                    ],
-                    borderWidth: 1
-                }]
-            };
-
-            // config 
-            const configSampah = {
-                type: 'pie',
-                data: dataSampah,
-                options: {
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'bottom',
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
+                        var ctxPersenSampah = document.getElementById('myChartSampah').getContext('2d');
+                        var myChartPersenSampah = new Chart(ctxPersenSampah, {
+                            type: 'pie',
+                            data: {
+                                labels: data.labelSampah,
+                                datasets: [{
+                                    label: 'Persentase',
+                                    data: data.dataSampah,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.8)',
+                                        'rgba(54, 162, 235, 0.8)',
+                                        'rgba(255, 206, 86, 0.8)',
+                                    ],
+                                    borderWidth: 1
+                                }]
                             }
-                        }
-                    }
-                }
-            };
+                        });
 
-            // render init block
-            const myChartSampah = new Chart(
-                document.getElementById('myChartSampah'),
-                configSampah
-            );
-
-
-            // bar chart grafik sampah perbulan
-            // setup
-            const dataSampahPerbulan = {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agust', 'Sept', 'Okt', 'Nov', 'Des'],
-                datasets: [{
-                    label: 'Weekly Sales',
-                    data: [18, 23, 14, 61, 23, 42, 16, 19, 70, 91, 12, 89],
-                    backgroundColor: [
-                        'rgb(54, 162, 235)',
-                        'rgb(54, 162, 235)',
-                        'rgb(54, 162, 235)',
-                        'rgb(54, 162, 235)',
-                        'rgb(54, 162, 235)',
-                        'rgb(54, 162, 235)',
-                        'rgb(54, 162, 235)',
-                        'rgb(54, 162, 235)',
-                        'rgb(54, 162, 235)',
-                        'rgb(54, 162, 235)',
-                        'rgb(54, 162, 235)',
-                        'rgb(54, 162, 235)',
-                    ],
-                    borderWidth: 1,
-                }]
-            };
-
-            // config 
-            const configSampahPerbulan = {
-                type: 'bar',
-                data: dataSampahPerbulan,
-                options: {
-                    plugins: {
-                        legend: {
-                            display: false,
-                            position: 'bottom',
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
+                        var ctxSampahPerbulan = document.getElementById('myChartSampahPerbulan').getContext('2d');
+                        var myChartSampahPerbulan = new Chart(ctxSampahPerbulan, {
+                            type: 'bar',
+                            data: {
+                                labels: data.labelSampahBar,
+                                datasets: [{
+                                    label: 'Total Berat Kg',
+                                    data: data.dataSampahBar,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.8)',
+                                        'rgba(54, 162, 235, 0.8)',
+                                        'rgba(255, 206, 86, 0.8)',
+                                    ],
+                                    borderWidth: 1
+                                }]
                             }
-                        }
+                        });
                     }
-                }
-            };
+                });
+            });
 
-            // render init block
-            const myChartSampahPerbulan = new Chart(
-                document.getElementById('myChartSampahPerbulan'),
-                configSampahPerbulan
-            );
         @endif
     </script>
 @endsection

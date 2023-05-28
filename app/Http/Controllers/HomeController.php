@@ -8,6 +8,7 @@ use App\Models\Sampah;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use DB;
 
 class HomeController extends Controller
@@ -51,106 +52,88 @@ class HomeController extends Controller
 
     public function pengurus()
     {
-        $pembelian = Transaksi::select(DB::raw("sum(nilai) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-            ->where('status', 'debit')
-            ->whereYear('created_at', date('Y'))
-            ->groupBy(DB::raw("month_name"))
-            ->orderBy('month_name', 'ASC')
-            ->pluck('count', 'month_name');
-
-        $labelPembelian = $pembelian->keys();
-        $dataPembelian = $pembelian->values();
-
-        $penarikan = Transaksi::select(DB::raw("sum(nilai) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-            ->where('status', 'kredit')
-            ->whereYear('created_at', date('Y'))
-            ->groupBy(DB::raw("month_name"))
-            ->orderBy('month_name', 'ASC')
-            ->pluck('count', 'month_name');
-
-        $labelPenarikan = $penarikan->keys();
-        $dataPenarikan = $penarikan->values();
-
-        $persenSampah = Sampah::join('transaksi', 'sampah.id', '=', 'transaksi.sampah_id')
-            ->select(DB::raw("sum(transaksi.berat) as count"), DB::raw("jenis"))
-            ->where('status', 'debit')
-            ->groupBy(DB::raw("sampah_id"))
-            ->orderBy('sampah_id', 'DESC')
-            ->pluck('count', 'jenis');
-
-        $labelpersenSampah = $persenSampah->keys();
-        $datapersenSampah = $persenSampah->values();
-
-        return view('dashboard', compact('labelPembelian', 'dataPembelian', 'labelPenarikan', 'dataPenarikan', 'labelpersenSampah', 'datapersenSampah'));
+        return view('dashboard');
     }
 
     public function bendahara()
     {
-        $pembelian = Transaksi::select(DB::raw("sum(nilai) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-            ->where('status', 'debit')
-            ->whereYear('created_at', date('Y'))
-            ->groupBy(DB::raw("month_name"))
-            ->orderBy('month_name', 'ASC')
-            ->pluck('count', 'month_name');
-
-        $labelPembelian = $pembelian->keys();
-        $dataPembelian = $pembelian->values();
-
-        $penarikan = Transaksi::select(DB::raw("sum(nilai) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-            ->where('status', 'kredit')
-            ->whereYear('created_at', date('Y'))
-            ->groupBy(DB::raw("month_name"))
-            ->orderBy('month_name', 'ASC')
-            ->pluck('count', 'month_name');
-
-        $labelPenarikan = $penarikan->keys();
-        $dataPenarikan = $penarikan->values();
-
-        $persenSampah = Sampah::join('transaksi', 'sampah.id', '=', 'transaksi.sampah_id')
-            ->select(DB::raw("sum(transaksi.berat) as count"), DB::raw("jenis"))
-            ->where('status', 'debit')
-            ->groupBy(DB::raw("sampah_id"))
-            ->orderBy('sampah_id', 'DESC')
-            ->pluck('count', 'jenis');
-
-        $labelpersenSampah = $persenSampah->keys();
-        $datapersenSampah = $persenSampah->values();
-
-        return view('dashboard', compact('labelPembelian', 'dataPembelian', 'labelPenarikan', 'dataPenarikan', 'labelpersenSampah', 'datapersenSampah'));
+        return view('dashboard');
     }
 
-    public function admin()
+    public function adminDashboard()
     {
-        $pembelian = Transaksi::select(DB::raw("sum(nilai) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+        return view('dashboard');
+    }
+
+    public function calculatePercentage($weight, $totalWeight)
+    {
+        if ($totalWeight == 0) {
+            return 0; // Avoid division by zero if totalWeight is zero
+        }
+
+        $percentage = ($weight / $totalWeight) * 100;
+
+        return round($percentage, 2); // Round the percentage to 2 decimal places
+    }
+
+    public function getData()
+    {
+        $pembelian = Transaksi::selectRaw("sum(nilai) as count, MONTHNAME(created_at) as month_name")
             ->where('status', 'debit')
             ->whereYear('created_at', date('Y'))
             ->groupBy(DB::raw("month_name"))
             ->orderBy('month_name', 'ASC')
-            ->pluck('count', 'month_name');
+            ->get('count', 'month_name');
 
-        $labelPembelian = $pembelian->keys();
-        $dataPembelian = $pembelian->values();
+        foreach ($pembelian as $row) {
+            $data['labelPembelian'][] = $row->month_name;
+            $data['dataPembelian'][] = (int) $row->count;
+        }
 
-        $penarikan = Transaksi::select(DB::raw("sum(nilai) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+        $penarikan = Transaksi::selectRaw("sum(nilai) as count, MONTHNAME(created_at) as month_name")
             ->where('status', 'kredit')
             ->whereYear('created_at', date('Y'))
             ->groupBy(DB::raw("month_name"))
             ->orderBy('month_name', 'ASC')
-            ->pluck('count', 'month_name');
+            ->get('count', 'month_name');
 
-        $labelPenarikan = $penarikan->keys();
-        $dataPenarikan = $penarikan->values();
+        foreach ($penarikan as $row) {
+            $data['labelPenarikan'][] = $row->month_name;
+            $data['dataPenarikan'][] = (int) $row->count;
+        }
 
-        $persenSampah = Sampah::join('transaksi', 'sampah.id', '=', 'transaksi.sampah_id')
-            ->select(DB::raw("sum(transaksi.berat) as count"), DB::raw("jenis"))
+
+        $sampah = Transaksi::with('sampah')
+            ->selectRaw('sum(berat) as count, sampah_id')
             ->where('status', 'debit')
-            ->groupBy(DB::raw("sampah_id"))
+            ->groupBy('sampah_id')
             ->orderBy('sampah_id', 'DESC')
-            ->pluck('count', 'jenis');
+            ->get(['count', 'sampah.jenis']);
 
-        $labelpersenSampah = $persenSampah->keys();
-        $datapersenSampah = $persenSampah->values();
+        // Hitung total berat sampah
+        $totalWeight = $sampah->sum('count');
 
-        return view('dashboard', compact('labelPembelian', 'dataPembelian', 'labelPenarikan', 'dataPenarikan', 'labelpersenSampah', 'datapersenSampah'));
+        // Hitung persentase berat sampah dan format data untuk Chart.js
+        foreach ($sampah as $item) {
+            $data['labelSampah'][] = $item['sampah']['jenis'];
+            $percentage = $this->calculatePercentage($item['count'], $totalWeight);
+            $data['dataSampah'][] = $percentage;
+        }
+
+
+        $sampah_bar = Transaksi::selectRaw('sum(berat) as total_berat, YEAR(created_at) as tahun, MONTH(created_at) as bulan')
+            ->where('status', 'debit')
+            ->groupBy('tahun', 'bulan')
+            ->orderBy('tahun', 'ASC')
+            ->orderBy('bulan', 'ASC')
+            ->get();
+
+        foreach ($sampah_bar as $item) {
+            $bulan = Carbon::createFromDate($item->tahun, $item->bulan, 1)->format('F Y');
+            $data['labelSampahBar'][] = $bulan;
+            $data['dataSampahBar'][] = $item->total_berat;
+        }
+
+        return response()->json($data);
     }
 }
