@@ -58,7 +58,7 @@
                                 <div class="card">
                                     <div class="card-header border-0">
                                         <div class="d-flex justify-content-between">
-                                            <h3 class="card-title">Grafik Persentase Eco Enzyme</h3>
+                                            <h3 class="card-title">Grafik Persentase Sampah</h3>
                                             <a href="javascript:void(0);">View Report</a>
                                         </div>
                                     </div>
@@ -73,7 +73,7 @@
                                 <div class="card">
                                     <div class="card-header border-0 mb-3">
                                         <div class="d-flex justify-content-between">
-                                            <h3 class="card-title">Grafik Eco Enzyme Perbulan</h3>
+                                            <h3 class="card-title">Grafik Sampah Perbulan</h3>
                                             <a href="javascript:void(0);">View Report</a>
                                         </div>
                                     </div>
@@ -239,7 +239,8 @@
                             }
                         });
 
-                        var ctxSampahPerbulan = document.getElementById('myChartSampahPerbulan').getContext('2d');
+                        var ctxSampahPerbulan = document.getElementById('myChartSampahPerbulan')
+                            .getContext('2d');
                         var myChartSampahPerbulan = new Chart(ctxSampahPerbulan, {
                             type: 'bar',
                             data: {
@@ -259,7 +260,6 @@
                     }
                 });
             });
-
         @endif
     </script>
 @endsection
