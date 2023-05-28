@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="position-relative mb-4">
-                                            <canvas id="myChartPembelian" height="200"></canvas>
+                                            <canvas id="myChartPembelian" height="100"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="position-relative mb-4">
-                                            <canvas id="myChartPenarikan" height="200"></canvas>
+                                            <canvas id="myChartPenarikan" height="100"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="position-relative mb-4">
-                                            <canvas id="myChartSampah" height="200"></canvas>
+                                            <canvas id="myChartSampah" height="270"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="position-relative mb-4">
-                                            <canvas id="myChartSampahPerbulan" height="200"></canvas>
+                                            <canvas id="myChartSampahPerbulan" height="100"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -236,6 +236,9 @@
                                     ],
                                     borderWidth: 1
                                 }]
+                            },
+                            options: {
+                                maintainAspectRatio: false,
                             }
                         });
 
