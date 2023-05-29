@@ -184,7 +184,7 @@
             theme: 'bootstrap4'
         })
 
-        @if (Auth::user()->type == 'admin')
+        @if (Auth::user()->type == 'admin' || Auth::user()->type == 'pengurus' || Auth::user()->type == 'bendahara')
 
             $(document).ready(function() {
                 $.ajax({
