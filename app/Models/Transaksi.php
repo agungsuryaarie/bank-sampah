@@ -14,7 +14,7 @@ class Transaksi extends Model
 
     protected $fillable = ['petugas_id', 'sampah_id', 'nasabah_id', 'berat', 'nilai', 'status', 'penarikan_id', 'created_at'];
 
-    protected function status(): Attribute
+    protected function stauts(): Attribute
     {
         return new Attribute(
             get: fn ($value) =>  ['debit', 'kredit'][$value],
@@ -28,7 +28,7 @@ class Transaksi extends Model
 
     public function sampah()
     {
-        return $this->belongsTo(Sampah::class, 'sampah_id');
+        return $this->belongsTo(Sampah::class);
     }
 
     public function nasabah()
