@@ -39,7 +39,7 @@ All Admin Routes List
 --------------------------------------------*/
 Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(function () {
 
-    Route::get('dashboard', [HomeController::class, 'adminDashboard'])->name('admin.dashboard');
+    Route::get('dashboard', [HomeController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('dashboard/data', [HomeController::class, 'getData'])->name('admin.dashboard.data');
     // user
     Route::get('user', [UserController::class, 'index'])->name('user.index');

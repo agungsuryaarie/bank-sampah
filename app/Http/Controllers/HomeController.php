@@ -50,17 +50,7 @@ class HomeController extends Controller
         return view('dashboard', compact('saldo', 'debit', 'kredit'));
     }
 
-    public function pengurus()
-    {
-        return view('dashboard');
-    }
-
-    public function bendahara()
-    {
-        return view('dashboard');
-    }
-
-    public function adminDashboard()
+    public function dashboard()
     {
         return view('dashboard');
     }
