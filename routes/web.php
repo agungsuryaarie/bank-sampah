@@ -40,10 +40,7 @@ All Admin Routes List
 Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::get('dashboard', [HomeController::class, 'dashboard'])->name('admin.dashboard');
-<<<<<<< HEAD
-=======
     Route::get('dashboard/data', [HomeController::class, 'getData'])->name('admin.dashboard.data');
->>>>>>> f060d1a00ff761e8ac8a8f4778767947b56b0595
     // user
     Route::get('user', [UserController::class, 'index'])->name('user.index');
     Route::get('user/create', [UserController::class, 'create'])->name('user.create');
@@ -86,11 +83,8 @@ All Pengurus Routes List
 Route::prefix('pengurus')->middleware(['auth', 'user-access:pengurus'])->group(function () {
 
     Route::get('dashboard', [HomeController::class, 'dashboard'])->name('pengurus.dashboard');
-<<<<<<< HEAD
-
-=======
     Route::get('dashboard/data', [HomeController::class, 'getData'])->name('admin.dashboard.data');
->>>>>>> f060d1a00ff761e8ac8a8f4778767947b56b0595
+
     // nasabah
     Route::get('nasabah', [NasabahController::class, 'index'])->name('pengurus.nasabah.index');
     Route::get('nasabah/show/{user}', [NasabahController::class, 'show'])->name('pengurus.nasabah.show');
@@ -115,11 +109,8 @@ All Bendahara Routes List
 Route::prefix('bendahara')->middleware(['auth', 'user-access:bendahara'])->group(function () {
 
     Route::get('dashboard', [HomeController::class, 'dashboard'])->name('bendahara.dashboard');
-<<<<<<< HEAD
-
-=======
     Route::get('dashboard/data', [HomeController::class, 'getData'])->name('admin.dashboard.data');
->>>>>>> f060d1a00ff761e8ac8a8f4778767947b56b0595
+
     // nasabah
     Route::get('nasabah', [NasabahController::class, 'index'])->name('bendahara.nasabah.index');
     Route::get('nasabah/show/{user}', [NasabahController::class, 'show'])->name('bendahara.nasabah.show');

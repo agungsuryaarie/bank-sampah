@@ -50,17 +50,23 @@ class HomeController extends Controller
         return view('dashboard', compact('saldo', 'debit', 'kredit'));
     }
 
-    public function pengurus()
+    public function dashboard()
     {
         return view('dashboard');
     }
 
-    public function bendahara()
+    public function calculatePercentage($weight, $totalWeight)
     {
-        return view('dashboard');
+        if ($totalWeight == 0) {
+            return 0; // Avoid division by zero if totalWeight is zero
+        }
+
+        $percentage = ($weight / $totalWeight) * 100;
+
+        return round($percentage, 2); // Round the percentage to 2 decimal places
     }
 
-    public function admin()
+    public function getData()
     {
         $pembelian = Transaksi::selectRaw("sum(nilai) as count, MONTHNAME(created_at) as month_name")
             ->where('status', 'debit')
