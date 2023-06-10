@@ -39,7 +39,8 @@ All Admin Routes List
 --------------------------------------------*/
 Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(function () {
 
-    Route::get('dashboard', [HomeController::class, 'admin'])->name('admin.dashboard');
+    Route::get('dashboard', [HomeController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('dashboard/data', [HomeController::class, 'getData'])->name('admin.dashboard.data');
     // user
     Route::get('user', [UserController::class, 'index'])->name('user.index');
     Route::get('user/create', [UserController::class, 'create'])->name('user.create');
@@ -81,8 +82,8 @@ All Pengurus Routes List
 --------------------------------------------*/
 Route::prefix('pengurus')->middleware(['auth', 'user-access:pengurus'])->group(function () {
 
-    Route::get('dashboard', [HomeController::class, 'pengurus'])->name('pengurus.dashboard');
-
+    Route::get('dashboard', [HomeController::class, 'dashboard'])->name('pengurus.dashboard');
+    Route::get('dashboard/data', [HomeController::class, 'getData'])->name('admin.dashboard.data');
     // nasabah
     Route::get('nasabah', [NasabahController::class, 'index'])->name('pengurus.nasabah.index');
     Route::get('nasabah/show/{user}', [NasabahController::class, 'show'])->name('pengurus.nasabah.show');
@@ -106,8 +107,8 @@ All Bendahara Routes List
 --------------------------------------------*/
 Route::prefix('bendahara')->middleware(['auth', 'user-access:bendahara'])->group(function () {
 
-    Route::get('dashboard', [HomeController::class, 'bendahara'])->name('bendahara.dashboard');
-
+    Route::get('dashboard', [HomeController::class, 'dashboard'])->name('bendahara.dashboard');
+    Route::get('dashboard/data', [HomeController::class, 'getData'])->name('admin.dashboard.data');
     // nasabah
     Route::get('nasabah', [NasabahController::class, 'index'])->name('bendahara.nasabah.index');
     Route::get('nasabah/show/{user}', [NasabahController::class, 'show'])->name('bendahara.nasabah.show');
