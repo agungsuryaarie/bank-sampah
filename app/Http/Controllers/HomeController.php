@@ -49,17 +49,8 @@ class HomeController extends Controller
         return view('dashboard', compact('saldo', 'debit', 'kredit'));
     }
 
-    public function pengurus()
-    {
-        return view('dashboard');
-    }
 
-    public function bendahara()
-    {
-        return view('dashboard');
-    }
-
-    public function admin()
+    public function dashboard()
     {
         $pembelian = Transaksi::select(DB::raw("sum(nilai) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
             ->where('status', 'debit')
