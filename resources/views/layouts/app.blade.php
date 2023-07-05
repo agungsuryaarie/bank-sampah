@@ -7,7 +7,7 @@
         @include('layouts.navbar')
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <aside class="main-sidebar sidebar-light-success elevation-4">
             <!-- Brand Logo -->
             <a href="{{ route(Auth::user()->type . '.dashboard') }}" class="brand-link">
                 <img src="{{ url('img/logo_bs.png') }}" alt="Logo" class="brand-image img-circle elevation-3"

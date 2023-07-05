@@ -25,7 +25,9 @@
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Log in ke Aplikasi Bank Sampah</p>
-
+                @if (Session::has('error'))
+                    <div id="alert" class="alert alert-danger">{{ Session::get('error') }}</div>
+                @endif
                 <form action="{{ route('login') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
@@ -82,6 +84,7 @@
     <script src="{{ url('plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ url('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ url('dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ url('js/custom.js') }}"></script>
 </body>
 
 </html>

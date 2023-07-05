@@ -317,7 +317,12 @@
                             $("#berat").val(data.berat);
                             $("#nilai").val(data.nilai);
                             $("#transaksi_id").val(data.id);
-                            $("#transaksi_id").val(data.created_at);
+                            var databaseDate = data.created_at;
+                            var dateObj = new Date(databaseDate);
+                            var year = dateObj.getFullYear();
+                            var month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
+                            var day = ("0" + dateObj.getDate()).slice(-2);
+                            $("#created_at").val(year + "-" + month + "-" + day);
                         });
                 });
 
