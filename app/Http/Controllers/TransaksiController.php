@@ -43,7 +43,7 @@ class TransaksiController extends Controller
                     $btn = '<center>' . $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Delete" class="btn btn-danger btn-xs delete"><i class="fas fa-trash"></i></a><center>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['tanggal', 'nasabah', 'pertugas', 'sampah', 'berat', 'nilai', 'action'])
                 ->make(true);
         }
         return view('transaksi.data', compact('menu', 'user', 'sampah'));
