@@ -18,6 +18,6 @@
     <link href="{{ url('dist/css/custom.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
+    <link rel="icon" href="{{ asset('logo.png') }}" type="image/x-icon" />
     {{-- @vite('resources/css/app.css', 'resources/js/app.js') --}}
 </head>
