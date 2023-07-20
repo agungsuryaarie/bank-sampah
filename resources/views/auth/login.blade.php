@@ -39,7 +39,7 @@
                             @if (Session::has('error'))
                                 <div id="alert" class="alert alert-danger">{{ Session::get('error') }}</div>
                             @endif
-                            <form action="{{ route('login') }}" class="mb-3" action="" method="POST">
+                            <form action="{{ route('masuk') }}" class="mb-3" action="" method="POST">
                                 @csrf
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between">

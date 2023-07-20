@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -25,8 +26,9 @@ use App\Http\Controllers\Auth\RegisterController;
 
 
 
-// Login
-Route::get('/', [DashboardController::class, 'login']);
+// // Login
+Route::get('/', [DashboardController::class, 'login'])->name('/');
+Route::post('/masuk', [LoginController::class, 'login'])->name('masuk');
 
 Auth::routes();
 

@@ -59,7 +59,7 @@ class LoginController extends Controller
                 return redirect()->route('nasabah.dashboard');
             }
         } else {
-            return redirect()->route('login')
+            return redirect()->route('/')
                 ->with('error', 'Email or Password Are Wrong.');
         }
     }
