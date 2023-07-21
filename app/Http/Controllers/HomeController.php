@@ -25,6 +25,7 @@ class HomeController extends Controller
         $kredit = Transaksi::where('nasabah_id', Auth::user()->id)->where('status', 'kredit')->sum('nilai');
         $saldo = Saldo::where('nasabah_id', Auth::user()->id)->first();
 
+
         if ($request->ajax()) {
             $data = Transaksi::where('nasabah_id', Auth::user()->id)
                 ->latest()->get();
@@ -52,7 +53,14 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard');
+        $tot_transaksi = Transaksi::count();
+        $tot_berat = Transaksi::where('status', 'debit')->sum('berat');
+        $pembelian = Transaksi::where('status', 'debit')->sum('nilai');
+        $penarikan = Transaksi::where('status', 'kredit')->sum('nilai');
+
+        $tot_pembelian = number_format($pembelian, 0, ',', '.');
+        $tot_penarikan = number_format($penarikan, 0, ',', '.');
+        return view('dashboard', compact('tot_transaksi', 'tot_berat', 'tot_pembelian', 'tot_penarikan'));
     }
 
     public function calculatePercentage($weight, $totalWeight)

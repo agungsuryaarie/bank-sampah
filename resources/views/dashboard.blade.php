@@ -22,8 +22,85 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="row">
-                        @if (Auth::user()->type == 'admin' || Auth::user()->type == 'pengurus' || Auth::user()->type == 'bendahara')
+
+                    @if (Auth::user()->type == 'admin' || Auth::user()->type == 'pengurus' || Auth::user()->type == 'bendahara')
+                        <div class="row">
+                            <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <div class="media d-flex">
+                                                <div class="align-self-center">
+                                                    <i class="fas fa-exchange-alt primary font-large-2 float-left"></i>
+                                                </div>
+                                                <div class="media-body text-right">
+                                                    <h3>{{ $tot_transaksi }}</h3>
+                                                    <span>Jumlah Transaksi</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <div class="media d-flex">
+                                                <div class="align-self-center">
+                                                    <i
+                                                        class="fa-solid fa-scale-unbalanced success font-large-2 float-left"></i>
+                                                </div>
+                                                <div class="media-body text-right">
+                                                    <h3>{{ $tot_berat }} Kg</h3>
+                                                    <span>Total Berat</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <div class="media d-flex">
+                                                <div class="align-self-center">
+                                                    <i
+                                                        class="fa-solid fa-cart-shopping warning font-large-2 float-left"></i>
+                                                </div>
+                                                <div class="media-body text-right">
+                                                    <h3>Rp. {{ $tot_pembelian }}</h3>
+                                                    <span>Total Pembelian</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <div class="media d-flex">
+                                                <div class="align-self-center">
+
+                                                    <i
+                                                        class="fa-solid fa-circle-dollar-to-slot danger font-large-2 float-left"></i>
+                                                </div>
+                                                <div class="media-body text-right">
+                                                    <h3>{{ $tot_penarikan }}</h3>
+                                                    <span>Total Penarikan</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="card">
                                     <div class="card-header border-0">
@@ -84,60 +161,60 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif
-                    </div>
-                    <div class="card">
-                        @if (Auth::user()->type == 'nasabah')
-                            <div class="card-body">
-                                <div class="row-card">
-                                    <div class="col-lg-6 col-12">
-                                        <div class="card-box bg-info">
-                                            <div class="inner">
-                                                <h5>Pemilik</h5>
-                                                <hr>
-                                                <p>Nama : {{ Auth::user()->name }}</p>
-                                                <p>Email : {{ Auth::user()->email }}</p>
-                                                <p>Telephone : {{ Auth::user()->nohp }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-12">
-                                        <div class="card-box bg-info">
-                                            <div class="inner">
-                                                <h5>Tabungan</h5>
-                                                <hr>
-                                                <p>Total Debit : Rp {{ $debit }}</p>
-                                                <p>Total Kredit : Rp {{ $kredit }}</p>
-                                                <p>Saldo Akhir : Rp {{ $saldo->saldo }}</p>
-                                            </div>
+                    @endif
+                </div>
+                <div class="card">
+                    @if (Auth::user()->type == 'nasabah')
+                        <div class="card-body">
+                            <div class="row-card">
+                                <div class="col-lg-6 col-12">
+                                    <div class="card-box bg-info">
+                                        <div class="inner">
+                                            <h5>Pemilik</h5>
+                                            <hr>
+                                            <p>Nama : {{ Auth::user()->name }}</p>
+                                            <p>Email : {{ Auth::user()->email }}</p>
+                                            <p>Telephone : {{ Auth::user()->nohp }}</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="invoice p-3 mb-3">
-                                    <div class="card-header ">
-                                        <h3 class="card-header-title text-center">Riwayat Transaksi</h3>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 table-responsive">
-                                            <table id="data-table" class="table table-bordered table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No</th>
-                                                        <th>Tanggal Transaksi</th>
-                                                        <th>Keterangan</th>
-                                                        <th>Nilai</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody></tbody>
-                                            </table>
+                                <div class="col-lg-6 col-12">
+                                    <div class="card-box bg-info">
+                                        <div class="inner">
+                                            <h5>Tabungan</h5>
+                                            <hr>
+                                            <p>Total Debit : Rp {{ $debit }}</p>
+                                            <p>Total Kredit : Rp {{ $kredit }}</p>
+                                            <p>Saldo Akhir : Rp {{ $saldo->saldo }}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        @endif
-                    </div>
+                            <div class="invoice p-3 mb-3">
+                                <div class="card-header ">
+                                    <h3 class="card-header-title text-center">Riwayat Transaksi</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 table-responsive">
+                                        <table id="data-table" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Tanggal Transaksi</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Nilai</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
+        </div>
         </div>
     </section>
 @endsection
